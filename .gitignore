@@ -37,3 +37,7 @@ next-env.d.ts
 
 # turbo
 .turbo
+
+# AI 工作日志
+.ai/
+CHANGELOG.ai.md

@@ -9,7 +9,13 @@
     "dev": "turbo run dev",
     "build": "turbo run build",
     "lint": "turbo run lint",
-    "format": "turbo run format"
+    "format": "turbo run format",
+    "ai-log:show": "cat .ai/worklog.jsonl | jq -r '.timestamp + \" | \" + .data.type + \" | \" + (.data.tool // .data.command // \"N/A\")' | tail -20",
+    "ai-log:json": "cat .ai/worklog.jsonl | jq -s '. | reverse | .[0:20]'",
+    "ai-log:md": "cat CHANGELOG.ai.md",
+    "ai-log:clear": "rm -f .ai/worklog.jsonl && echo '# AI Work Log\\n\\n自动生成的 AI 工作日志\\n\\n---\\n' > CHANGELOG.ai.md",
+    "ai-log:stats": "cat .ai/worklog.jsonl | jq -s 'map(.data.type) | group_by(.) | map({type: .[0], count: length})'",
+    "ai-log:tools": "cat .ai/worklog.jsonl | jq -r '[.data.tool] | group_by(.) | map({tool: .[0], count: length}) | sort_by(.count) | reverse'"
   },
   "devDependencies": {
     "turbo": "^2.0.0"

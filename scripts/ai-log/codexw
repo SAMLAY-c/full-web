@@ -1,0 +1,57 @@
+#!/bin/bash
+# Codex CLI Wrapper
+# 模拟 hooks 功能，记录 Codex 执行情况
+
+set -euo pipefail
+
+# 加载共享函数
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/common.sh"
+
+# 检查是否提供了命令
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 <codex_command> [args...]"
+    echo "Example: $0 codex exec '帮我写一个函数'"
+    exit 1
+fi
+
+# 记录开始时间
+START_TIME=$(date +%s)
+COMMAND_NAME="$1"
+COMMAND_ARGS="${@:2}"
+
+# 构建初始日志条目
+LOG_ENTRY=$(jq -n \
+    --arg type "codex_execution" \
+    --arg command "$COMMAND_NAME" \
+    --argargs args "$COMMAND_ARGS" \
+    '{type: $type, command: $command, args: $args, startTime: null, endTime: null, exitCode: null}')
+
+# 执行实际命令
+OUTPUT=$("$@" 2>&1)
+EXIT_CODE=$?
+
+# 记录结束时间
+END_TIME=$(date +%s)
+DURATION=$((END_TIME - START_TIME))
+
+# 更新日志条目
+LOG_ENTRY=$(echo "$LOG_ENTRY" | jq \
+    --argjson start "$START_TIME" \
+    --argjson end "$END_TIME" \
+    --argjson exit "$EXIT_CODE" \
+    --arg output "$OUTPUT" \
+    '.startTime = $start | .endTime = $end | .exitCode = $exit | .output = $output | .duration = ($end - $start)')
+
+# 写入日志
+ensure_log_dir
+write_log_entry "$LOG_ENTRY"
+
+# 更新 Markdown (仅失败时)
+if [ $EXIT_CODE -ne 0 ]; then
+    update_changelog "Codex Error" "**命令**: $COMMAND_NAME $COMMAND_ARGS\n**退出码**: $EXIT_CODE\n**输出**: $OUTPUT"
+fi
+
+# 输出结果并返回原始退出码
+echo "$OUTPUT"
+exit $EXIT_CODE
