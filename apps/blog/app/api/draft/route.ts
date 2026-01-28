@@ -1,20 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@sanity/client";
-
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
-const token = process.env.SANITY_WRITE_TOKEN;
-
-const sanityClient =
-  projectId && dataset && token
-    ? createClient({
-        projectId,
-        dataset,
-        apiVersion: "2024-01-01",
-        token,
-        useCdn: false
-      })
-    : null;
+import { sanityWriteClient } from "../../../lib/sanity/client";
 
 type DraftPayload = {
   title: string;
@@ -26,7 +11,7 @@ type DraftPayload = {
 };
 
 export async function POST(request: Request) {
-  if (!sanityClient) {
+  if (!sanityWriteClient) {
     return NextResponse.json(
       { error: "Sanity client not configured" },
       { status: 500 }
@@ -53,7 +38,7 @@ export async function POST(request: Request) {
     content: body.content ?? []
   };
 
-  const result = await sanityClient.createOrReplace({
+  const result = await sanityWriteClient.createOrReplace({
     _id: `post.${body.slug}`,
     ...doc
   });

@@ -1,6 +1,6 @@
 import imageUrlBuilder from "@sanity/image-url";
 import type { ImageUrlBuilder } from "@sanity/image-url/lib/types/builder";
-import { sanityConfig } from "./sanity.client";
+import { sanityConfig } from "./sanity/client";
 
 type ImageSource = Parameters<ImageUrlBuilder["image"]>[0];
 

@@ -1,13 +1,8 @@
 const path = require("path");
 const dotenv = require("dotenv");
-const { createClient } = require(
-  path.join(
-    __dirname,
-    "node_modules/.pnpm/@sanity+client@7.14.1_debug@4.4.3/node_modules/@sanity/client/dist/index.cjs"
-  )
-);
+const { createClient } = require("@sanity/client");
 
-dotenv.config({ path: path.join(__dirname, "apps/blog/.env.local") });
+dotenv.config({ path: path.join(__dirname, "../.env.local") });
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;

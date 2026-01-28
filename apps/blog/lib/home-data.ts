@@ -1,6 +1,6 @@
 import { globalConfig, getCategories } from "./site";
 import { getLatestPosts } from "./posts";
-import { sanityClient } from "./sanity.client";
+import { sanityClient } from "./sanity/client";
 import { homeQuery } from "./sanity.queries";
 
 export type HomeData = {
@@ -43,7 +43,6 @@ export async function getHomeData(): Promise<HomeData> {
     };
   }
 
-  console.log("[home-data] Fetching home data from Sanity.");
   const data = await sanityClient.fetch(homeQuery);
 
   return {

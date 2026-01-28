@@ -1,14 +1,14 @@
-import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
-import { sanityClient } from "../../../lib/sanity.client";
+import { sanityReadClient } from "../../../lib/sanity/client";
 import { urlFor } from "../../../lib/sanity.image";
+import PostBody from "../../../components/post-body";
 
 export const dynamic = "force-dynamic";
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
-  if (!sanityClient) {
+  if (!sanityReadClient) {
     notFound();
   }
 
@@ -22,7 +22,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     content
   }`;
 
-  const post = await sanityClient.fetch(query, { slug });
+  const post = await sanityReadClient.fetch(query, { slug });
 
   if (!post) {
     notFound();
@@ -44,25 +44,25 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         ) : null}
       </header>
 
-      <div className="prose prose-lg mx-auto text-gray-700 md:prose-xl">
-        {post.postType === "video" && post.videoUrl ? (
-          <div className="mb-10">
-            <div className="aspect-video w-full overflow-hidden rounded-xl bg-black shadow-md">
-              <iframe
-                allowFullScreen
-                className="h-full w-full"
-                src={post.videoUrl.replace("watch?v=", "embed/")}
-                title="Video player"
-              />
-            </div>
-            <p className="mt-4 rounded bg-gray-50 p-2 text-center text-sm text-gray-500">
-              💡 提示：这是一个视频教程，请点击上方播放
-            </p>
+      {post.postType === "video" && post.videoUrl ? (
+        <div className="mb-10">
+          <div className="aspect-video w-full overflow-hidden rounded-xl bg-black shadow-md">
+            <iframe
+              allowFullScreen
+              className="h-full w-full"
+              src={post.videoUrl.replace("watch?v=", "embed/")}
+              title="Video player"
+            />
           </div>
-        ) : null}
+          <p className="mt-4 rounded bg-gray-50 p-2 text-center text-sm text-gray-500">
+            💡 提示：这是一个视频教程，请点击上方播放
+          </p>
+        </div>
+      ) : null}
 
-        {post.postType === "article" ? <PortableText value={postBody} /> : null}
-      </div>
+      {post.postType === "article" ? (
+        <PostBody className="text-gray-700 md:prose-xl" content={postBody} />
+      ) : null}
     </article>
   );
 }

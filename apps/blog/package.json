@@ -8,15 +8,22 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@portabletext/react": "^3.2.1",
     "@repo/ui": "workspace:*",
     "@repo/utils": "workspace:*",
-    "@portabletext/react": "^3.2.1",
     "@sanity/client": "^7.14.1",
     "@sanity/image-url": "^1.0.2",
+    "glob": "^13.0.0",
+    "marked": "^17.0.1",
     "next": "14.2.5",
     "next-sanity": "^9.4.7",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "25.0.10",
@@ -24,6 +31,7 @@
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.10",
+    "tsx": "^4.21.0",
     "typescript": "^5.5.4"
   }
 }
