@@ -3,6 +3,9 @@ import { postService } from "../../../lib/service/posts";
 import { urlFor } from "../../../lib/sanity.image";
 import PostBody from "../../../components/post-body";
 
+// ✅ ISR: 每 60 秒检查一次文章内容修正
+export const revalidate = 60;
+
 // ✅ SSG: 告诉 Next.js 需要静态生成哪些 slug
 export async function generateStaticParams() {
   const posts = await postService.getAllPosts();

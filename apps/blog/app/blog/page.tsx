@@ -1,5 +1,8 @@
 import { postService } from "@/lib/service/posts";
 
+// ✅ ISR: 每 60 秒检查一次新文章
+export const revalidate = 60;
+
 export default async function BlogIndex() {
   // ✅ 使用统一服务获取文章列表（自动处理 Sanity 和本地数据）
   const posts = await postService.getAllPosts();

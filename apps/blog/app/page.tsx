@@ -2,6 +2,9 @@ import { postService } from "@/lib/service/posts";
 import { getHomeData } from "../lib/home-data";
 import { urlFor } from "../lib/sanity.image";
 
+// ✅ ISR: 每 60 秒检查一次数据更新
+export const revalidate = 60;
+
 export default async function BlogHome() {
   // ✅ 使用 postService 获取最新 3 篇文章
   const latestPosts = await postService.getLatestPosts(3);
