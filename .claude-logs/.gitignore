@@ -1,0 +1,7 @@
+# Claude Code 会话日志
+
+# 忽略临时会话日志
+session.jsonl
+
+# 保留复盘日志
+!RETRO.md
