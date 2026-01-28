@@ -1,16 +1,8 @@
-import { sanityClient } from "@/lib/sanity/client";
-
-const allPostsQuery = `*[_type == "post" && status == "published"] | order(_createdAt desc) {
-  title,
-  "slug": slug.current,
-  excerpt,
-  "type": postType,
-  publishedAt,
-  tags
-}`;
+import { postService } from "@/lib/service/posts";
 
 export default async function BlogIndex() {
-  const posts = await sanityClient.fetch(allPostsQuery);
+  // ✅ 使用统一服务获取文章列表（自动处理 Sanity 和本地数据）
+  const posts = await postService.getAllPosts();
 
   return (
     <main className="px-6 pb-24 pt-10 sm:px-10">
@@ -22,17 +14,15 @@ export default async function BlogIndex() {
           </h1>
         </header>
         <div className="grid gap-6 md:grid-cols-2">
-          {posts.map((post: any) => (
+          {posts.map((post) => (
             <a
               key={post.slug}
               href={`/blog/${post.slug}`}
               className="group rounded-3xl border border-brand-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
             >
-              {post.tags && post.tags.length > 0 && (
-                <p className="text-xs uppercase tracking-[0.3em] text-brand-500">
-                  {post.tags[0]}
-                </p>
-              )}
+              {/* 可选：显示数据来源（方便调试） */}
+              {/* <span className="text-xs px-2 py-1 rounded bg-gray-100">{post.source}</span> */}
+
               <h2 className="mt-4 text-2xl font-semibold text-brand-900">
                 {post.title}
               </h2>

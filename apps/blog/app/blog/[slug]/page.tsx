@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { sanityReadClient } from "../../../lib/sanity/client";
+import { postService } from "../../../lib/service/posts";
 import { urlFor } from "../../../lib/sanity.image";
 import PostBody from "../../../components/post-body";
 
@@ -8,28 +8,18 @@ export const dynamic = "force-dynamic";
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
-  if (!sanityReadClient) {
-    notFound();
-  }
-
-  const query = `*[_type == "post" && slug.current == $slug][0] {
-    title,
-    postType,
-    videoUrl,
-    coverImage,
-    publishedAt,
-    body,
-    content
-  }`;
-
-  const post = await sanityReadClient.fetch(query, { slug });
+  // ✅ 使用统一服务获取文章（自动处理 Sanity 和本地数据）
+  const post = await postService.getPostBySlug(slug);
 
   if (!post) {
     notFound();
   }
 
-  const postBody = post.body || post.content || [];
-  const coverUrl = urlFor(post.coverImage)?.width(1200).height(675).url();
+  // 根据来源处理不同的数据结构
+  const isSanity = post.source === "sanity";
+  const coverUrl = isSanity && post.coverImage
+    ? urlFor(post.coverImage)?.width(1200).height(675).url()
+    : null;
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-12">
@@ -44,25 +34,15 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         ) : null}
       </header>
 
-      {post.postType === "video" && post.videoUrl ? (
-        <div className="mb-10">
-          <div className="aspect-video w-full overflow-hidden rounded-xl bg-black shadow-md">
-            <iframe
-              allowFullScreen
-              className="h-full w-full"
-              src={post.videoUrl.replace("watch?v=", "embed/")}
-              title="Video player"
-            />
-          </div>
-          <p className="mt-4 rounded bg-gray-50 p-2 text-center text-sm text-gray-500">
-            💡 提示：这是一个视频教程，请点击上方播放
-          </p>
+      {isSanity ? (
+        // Sanity 文章渲染
+        <PostBody className="text-gray-700 md:prose-xl" content={post.body} />
+      ) : (
+        // 本地文章渲染
+        <div className="prose prose-lg mx-auto max-w-none text-gray-700">
+          {post.body}
         </div>
-      ) : null}
-
-      {post.postType === "article" ? (
-        <PostBody className="text-gray-700 md:prose-xl" content={postBody} />
-      ) : null}
+      )}
     </article>
   );
 }
