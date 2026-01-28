@@ -8,9 +8,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@repo/ui": "*",
-    "@repo/utils": "*",
+    "@repo/ui": "workspace:*",
+    "@repo/utils": "workspace:*",
+    "@portabletext/react": "^3.2.1",
+    "@sanity/client": "^7.14.1",
+    "@sanity/image-url": "^1.0.2",
     "next": "14.2.5",
+    "next-sanity": "^9.4.7",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },

@@ -1,0 +1,13 @@
+{
+  "name": "@apps/studio",
+  "private": true,
+  "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
+    "deploy": "sanity deploy"
+  },
+  "dependencies": {
+    "sanity": "^3.52.2",
+    "styled-components": "^6.3.8"
+  }
+}
