@@ -1,8 +1,13 @@
+import { postService } from "@/lib/service/posts";
 import { getHomeData } from "../lib/home-data";
 import { urlFor } from "../lib/sanity.image";
 
 export default async function BlogHome() {
-  const { categories, globalConfig, posts } = await getHomeData();
+  // ✅ 使用 postService 获取最新 3 篇文章
+  const latestPosts = await postService.getLatestPosts(3);
+
+  // 获取其他首页数据（分类、全局配置）
+  const { categories, globalConfig } = await getHomeData();
 
   return (
     <main className="px-6 pb-24 pt-12 sm:px-10">
@@ -59,8 +64,8 @@ export default async function BlogHome() {
           </a>
         </div>
         <div className="mt-6 grid gap-6 md:grid-cols-3">
-          {posts.map((post) => {
-            const coverUrl = urlFor(post.coverImage)?.width(800).url();
+          {latestPosts.map((post) => {
+            const coverUrl = post.source === "sanity" && urlFor(post.coverImage)?.width(800).url();
 
             return (
               <a
@@ -78,7 +83,7 @@ export default async function BlogHome() {
                 />
                 <div className="p-6">
                   <p className="text-xs uppercase tracking-[0.3em] text-brand-500">
-                    {post.type === "video" ? "Video" : "Article"}
+                    Article
                   </p>
                   <h3 className="mt-3 text-lg font-semibold text-brand-900">
                     {post.title}
@@ -104,7 +109,7 @@ export default async function BlogHome() {
               </p>
             </div>
             <div className="flex items-center gap-4 rounded-2xl bg-white px-5 py-4 text-sm font-semibold text-brand-700 shadow-sm">
-              {urlFor(globalConfig.hookQrCode)?.width(240) ? (
+              {globalConfig.hookQrCode && urlFor(globalConfig.hookQrCode)?.width(240) ? (
                 <img
                   alt="QR Code"
                   className="h-14 w-14 rounded-xl object-cover"

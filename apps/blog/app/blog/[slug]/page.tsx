@@ -3,7 +3,16 @@ import { postService } from "../../../lib/service/posts";
 import { urlFor } from "../../../lib/sanity.image";
 import PostBody from "../../../components/post-body";
 
-export const dynamic = "force-dynamic";
+// ✅ SSG: 告诉 Next.js 需要静态生成哪些 slug
+export async function generateStaticParams() {
+  const posts = await postService.getAllPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
+
+// ✅ 禁止访问不存在的路径（返回 404）
+export const dynamicParams = false;
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const { slug } = params;

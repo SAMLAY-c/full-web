@@ -50,10 +50,10 @@ export const postService = {
     // 2. 如果 Sanity 没数据，回退到本地数据
     if (allPosts.length === 0) {
       const localPosts = getLocalLatestPosts(100);
-      allPosts = localPosts.map((p) => ({
+      allPosts = localPosts.map((p: any) => ({
         slug: p.slug,
         title: p.title,
-        publishedAt: p.date,
+        publishedAt: p.date || new Date().toISOString(),
         excerpt: p.excerpt,
         source: "local" as const,
       }));
@@ -84,14 +84,20 @@ export const postService = {
     // 2. 如果 Sanity 没找到，回退到本地数据
     const localPost = getLocalPost(slug);
     if (localPost && localPost.status === "published") {
-      return {
+      const post: any = {
         slug: localPost.slug,
         title: localPost.title,
-        publishedAt: localPost.date,
+        publishedAt: (localPost as any).date || new Date().toISOString(),
         excerpt: localPost.excerpt,
-        body: localPost.content,
         source: "local",
       };
+
+      // ArticlePost 有 content 字段
+      if ("content" in localPost) {
+        post.body = (localPost as any).content;
+      }
+
+      return post;
     }
 
     // 3. 都没找到，返回 null

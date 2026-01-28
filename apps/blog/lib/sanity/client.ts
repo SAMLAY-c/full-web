@@ -8,8 +8,8 @@ export const sanityConfig = {
   dataset: env.NEXT_PUBLIC_SANITY_DATASET,
   apiVersion: "2024-01-01",
   useCdn: false,
-  perspective: "raw"
-};
+  perspective: "raw" as const
+} as const;
 
 export const sanityClient = env.SANITY_WRITE_TOKEN
   ? createClient({
