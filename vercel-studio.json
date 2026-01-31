@@ -1,0 +1,9 @@
+{
+  "framework": null,
+  "buildCommand": "cd apps/studio && pnpm build",
+  "outputDirectory": "apps/studio/dist",
+  "installCommand": "pnpm install",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

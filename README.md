@@ -62,6 +62,6 @@ pnpm dev
 
 ## 📚 相关文档
 
+- [文档索引](docs/README.md)
 - [Markdown模板系统文档](apps/blog/lib/markdown-templates/README.md)
 - [快速开始指南](apps/blog/lib/markdown-templates/QUICK_START.md)
-
