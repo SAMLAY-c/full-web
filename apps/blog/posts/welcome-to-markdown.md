@@ -3,8 +3,8 @@ title: "欢迎使用 Markdown 编辑器"
 date: "2025-01-28"
 excerpt: "这是一个示例文章，展示了 Markdown 的基本功能"
 tags: ["markdown", "sanity", "tutorial"]
-status: "published"
-postType: "article"
+status: published
+postType: article
 ---
 
 # 欢迎使用 Markdown 编辑器

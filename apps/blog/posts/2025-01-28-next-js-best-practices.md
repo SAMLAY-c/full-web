@@ -3,8 +3,8 @@ title: "Next.js 最佳实践 2025"
 date: "2025-01-28"
 excerpt: "探索 Next.js 14 的最新特性和最佳实践"
 tags: ["nextjs", "react", "performance"]
-status: "published"
-postType: "article"
+status: published
+postType: article
 ---
 
 # Next.js 最佳实践 2025

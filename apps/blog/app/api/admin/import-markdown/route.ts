@@ -49,10 +49,10 @@ function extractMetadata(content: string): {
             .map((tag: string) => tag.trim().replace(/^["']|["']$/g, ""));
           break;
         case "status":
-          metadata.status = value;
+          metadata.status = value.replace(/^["']|["']$/g, "");
           break;
         case "postType":
-          metadata.postType = value;
+          metadata.postType = value.replace(/^["']|["']$/g, "");
           break;
       }
     }

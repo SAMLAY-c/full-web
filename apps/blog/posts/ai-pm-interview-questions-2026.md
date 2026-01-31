@@ -3,8 +3,8 @@ title: "2026 年 AI 产品经理实习/校招常见开放性面试题汇总"
 date: "2026-01-31"
 excerpt: "全面解析 2026 年 AI 产品经理面试的开放性问题，涵盖岗位认知、技术理解、产品设计、商业化等核心维度"
 tags: ["AI产品经理", "面试", "校招", "实习", "职业发展"]
-status: "published"
-postType: "article"
+status: published
+postType: article
 ---
 
 ## 1. 总览：AI 产品经理开放题的考察框架（2026）
