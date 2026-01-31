@@ -3,7 +3,8 @@ import { getPost as getLocalPost, getLatestPosts as getLocalLatestPosts } from "
 import type { Post } from "../types";
 
 // GROQ 查询：获取所有文章（列表用，不包含全文）
-const LIST_QUERY = `*[_type == "post" && status == "published"] | order(publishedAt desc) {
+// 先按置顶排序（isPinned true优先，然后按pinOrder升序），再按发布时间倒序
+const LIST_QUERY = `*[_type == "post" && status == "published"] | order(isPinned desc, pinOrder asc, publishedAt desc) {
   title,
   "slug": slug.current,
   publishedAt,
@@ -11,7 +12,9 @@ const LIST_QUERY = `*[_type == "post" && status == "published"] | order(publishe
   mainImage,
   coverImage,
   tags,
-  status
+  status,
+  isPinned,
+  pinOrder
 }`;
 
 // GROQ 查询：获取单篇文章（详情用，包含全文）

@@ -11,6 +11,8 @@ interface BlogCardProps {
   publishedAt?: string;
   tags?: string[];
   coverUrl?: string | null;
+  isPinned?: boolean;
+  pinOrder?: number;
 }
 
 export default function BlogCard({
@@ -20,6 +22,7 @@ export default function BlogCard({
   publishedAt,
   tags,
   coverUrl,
+  isPinned,
 }: BlogCardProps) {
 
   return (
@@ -29,6 +32,14 @@ export default function BlogCard({
     >
       {/* Cover Image or Gradient Placeholder */}
       <div className="relative aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100">
+        {isPinned && (
+          <div className="absolute left-3 top-3 z-10 flex items-center gap-1.5 rounded-full bg-amber-500 px-3 py-1.5 shadow-lg">
+            <svg className="h-3.5 w-3.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" transform="rotate(180 10 10)" />
+            </svg>
+            <span className="text-xs font-semibold text-white">置顶</span>
+          </div>
+        )}
         {coverUrl ? (
           <img
             src={coverUrl}

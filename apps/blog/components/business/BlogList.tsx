@@ -16,6 +16,8 @@ interface Post {
   coverImage?: any;
   mainImage?: any;
   coverUrl?: string | null;
+  isPinned?: boolean;
+  pinOrder?: number;
 }
 
 interface BlogListProps {
@@ -78,6 +80,7 @@ export default function BlogList({ posts, allTags }: BlogListProps) {
                 publishedAt={post.publishedAt}
                 tags={post.tags}
                 coverUrl={post.coverUrl}
+                isPinned={post.isPinned}
               />
             ))}
           </div>

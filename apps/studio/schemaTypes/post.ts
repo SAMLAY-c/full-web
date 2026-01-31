@@ -106,6 +106,21 @@ export default defineType({
       title: "发布时间",
       type: "datetime",
       initialValue: () => new Date().toISOString()
+    }),
+    defineField({
+      name: "isPinned",
+      title: "是否置顶",
+      type: "boolean",
+      initialValue: false,
+      description: "开启后，该文章将显示在列表顶部"
+    }),
+    defineField({
+      name: "pinOrder",
+      title: "置顶顺序",
+      type: "number",
+      hidden: ({ document }) => !document?.isPinned,
+      description: "数字越小越靠前，例如：1, 2, 3...",
+      initialValue: 99
     })
   ]
 });

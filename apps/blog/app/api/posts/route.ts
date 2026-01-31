@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       filters.push(`"${tag}" in tags`);
     }
 
-    const query = `*[${filters.join(" && ")}] | order(publishedAt desc)${
+    const query = `*[${filters.join(" && ")}] | order(isPinned desc, pinOrder asc, publishedAt desc)${
       limit ? ` [0...${parseInt(limit)}]` : ""
     } {
       _id,
@@ -49,6 +49,8 @@ export async function GET(request: NextRequest) {
       tags,
       status,
       postType,
+      isPinned,
+      pinOrder,
       _createdAt,
       _updatedAt
     }`;
