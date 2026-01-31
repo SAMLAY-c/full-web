@@ -3,7 +3,7 @@ import { getPost as getLocalPost, getLatestPosts as getLocalLatestPosts } from "
 import type { Post } from "../types";
 
 // GROQ 查询：获取所有文章（列表用，不包含全文）
-const LIST_QUERY = `*[_type == "post"] | order(publishedAt desc) {
+const LIST_QUERY = `*[_type == "post" && status == "published"] | order(publishedAt desc) {
   title,
   "slug": slug.current,
   publishedAt,
@@ -15,7 +15,7 @@ const LIST_QUERY = `*[_type == "post"] | order(publishedAt desc) {
 }`;
 
 // GROQ 查询：获取单篇文章（详情用，包含全文）
-const POST_BY_SLUG_QUERY = `*[_type == "post" && slug.current == $slug][0]{
+const POST_BY_SLUG_QUERY = `*[_type == "post" && slug.current == $slug && status == "published"][0]{
   title,
   "slug": slug.current,
   publishedAt,
@@ -26,9 +26,6 @@ const POST_BY_SLUG_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   tags,
   status
 }`;
-
-// GROQ 查询：获取所有标签
-const ALL_TAGS_QUERY = `*[_type == "post" && defined(tags)].tags[]`;
 
 /**
  * 统一的文章服务
@@ -128,7 +125,9 @@ export const postService = {
   async getAllTags(): Promise<string[]> {
     try {
       if (sanityReadClient) {
-        const tags = await sanityReadClient.fetch(ALL_TAGS_QUERY);
+        // 只从已发布文章中获取标签
+        const TAGS_QUERY = `*[_type == "post" && status == "published" && defined(tags)].tags[]`;
+        const tags = await sanityReadClient.fetch(TAGS_QUERY);
         if (tags && tags.length > 0) {
           // 去重并排序
           return [...new Set(tags.filter(Boolean))].sort();

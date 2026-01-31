@@ -1,5 +1,6 @@
 import { postService } from "@/lib/service/posts";
 import BlogList from "@/components/business/BlogList";
+import { urlFor } from "@/lib/sanity.image";
 
 // ✅ 缓存策略：ISR 增量静态再生成
 // 每 300 秒（5 分钟）检查一次新文章
@@ -16,5 +17,13 @@ export default async function BlogIndex() {
     postService.getAllTags(),
   ]);
 
-  return <BlogList posts={posts} allTags={allTags} />;
+  // 在服务端构建图片 URL
+  const postsWithCoverUrls = posts.map((post) => ({
+    ...post,
+    coverUrl: post.source === "sanity" && post.coverImage
+      ? urlFor(post.coverImage)?.width(800).height(450).url()
+      : null,
+  }));
+
+  return <BlogList posts={postsWithCoverUrls} allTags={allTags} />;
 }

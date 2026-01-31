@@ -4,6 +4,9 @@ export interface Post {
   publishedAt: string;
   excerpt?: string;
   coverImage?: any;
+  mainImage?: any;
   body?: any;
+  tags?: string[];
+  status?: "draft" | "published";
   source: "sanity" | "local";
 }
