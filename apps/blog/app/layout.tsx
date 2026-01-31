@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Source_Serif_4 } from "next/font/google";
+import { Playfair_Display, Noto_Sans_SC } from "next/font/google";
 import "./globals.css";
 
-const display = Bricolage_Grotesque({
+const display = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["400", "600", "700"]
+  weight: ["400", "500", "600", "700"]
 });
 
-const body = Source_Serif_4({
+const body = Noto_Sans_SC({
   subsets: ["latin"],
   variable: "--font-body",
-  weight: ["300", "400", "600"]
+  weight: ["300", "400", "500", "700"]
 });
 
 export const metadata: Metadata = {
-  title: "Blog | Tutorials and Playbooks",
-  description: "Practical guides for AI, design tooling, and product operations."
+  title: "暖阳博客 | WarmSun Blog",
+  description: "用文字记录每一个精彩瞬间"
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html lang="zh-CN" className={`${display.variable} ${body.variable}`}>
       <body>{children}</body>
     </html>
   );

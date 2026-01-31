@@ -11,17 +11,48 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: "#eef7ff",
-          100: "#d7ecff",
-          200: "#b0d9ff",
-          300: "#7ec0ff",
-          400: "#49a4ff",
-          500: "#1c86ff",
-          600: "#0a6de6",
-          700: "#0955b3",
-          800: "#0b478f",
-          900: "#0d3d73"
+          50: "#FFF8F3",
+          100: "#FFE8DC",
+          200: "#FFD4C4",
+          300: "#FF9F7F",
+          400: "#FF8C42",
+          500: "#FF6B35",
+          600: "#E85D04",
+          700: "#D44A00",
+          800: "#A33A04",
+          900: "#7A2E08"
+        },
+        warm: {
+          cream: "#FFF8F3",
+          warm: "#FFF0E8",
+          peach: "#FFD4C4",
+          coral: "#FF9F7F",
+          orange: "#FF6B35",
+          dark: "#E85D04"
+        },
+        text: {
+          dark: "#2D1B14",
+          medium: "#5D4037",
+          light: "#8D6E63"
         }
+      },
+      fontFamily: {
+        display: ['var(--font-display)', 'Georgia', 'serif'],
+        body: ['var(--font-body)', 'system-ui', 'sans-serif'],
+      },
+      borderRadius: {
+        'sm': '12px',
+        'md': '20px',
+        'lg': '32px',
+        'xl': '48px',
+      },
+      boxShadow: {
+        'soft': '0 4px 20px rgba(255, 107, 53, 0.15)',
+        'medium': '0 8px 40px rgba(255, 107, 53, 0.2)',
+        'strong': '0 12px 60px rgba(232, 93, 4, 0.25)',
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       },
       typography: ({ theme }: any) => ({
         DEFAULT: {
@@ -29,11 +60,9 @@ export default {
             // Base colors matching existing design
             '--tw-prose-body': theme('colors.gray.700'),
             '--tw-prose-headings': theme('colors.gray.900'),
-            '--tw-prose-links': theme('colors.brand.600'),
-            '--tw-prose-links-hover': theme('colors.brand.700'),
-            '--tw-prose-bold': theme('colors.gray.900'),
-            '--tw-prose-code': theme('colors.brand.600'),
-            '--tw-prose-hr': theme('colors.gray.200'),
+            '--tw-prose-links': theme('colors.brand.500'),
+            '--tw-prose-links-hover': theme('colors.brand.600'),
+            '--tw-prose-code': theme('colors.brand.500'),
             '--tw-prose-quote-borders': theme('colors.brand.200'),
 
             // Max width for readability
