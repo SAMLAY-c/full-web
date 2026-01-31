@@ -14,8 +14,8 @@ export async function generateStaticParams() {
   }));
 }
 
-// ✅ 禁止访问不存在的路径（返回 404）
-export const dynamicParams = false;
+// ✅ 允许动态参数（新文章可立即访问）
+export const dynamicParams = true;
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const { slug } = params;

@@ -9,6 +9,8 @@ type PublishPayload = {
   status?: "draft" | "published";
   videoUrl?: string;
   content?: unknown[];
+  tags?: string[];
+  publishedAt?: string;
 };
 
 export async function POST(request: Request) {
@@ -38,7 +40,9 @@ export async function POST(request: Request) {
     excerpt: body.excerpt ?? "",
     status,
     videoUrl: body.videoUrl,
-    content: body.content ?? []
+    content: body.content ?? [],
+    tags: body.tags ?? [],
+    publishedAt: body.publishedAt ?? new Date().toISOString()
   };
 
   const result = await sanityWriteClient.createOrReplace({

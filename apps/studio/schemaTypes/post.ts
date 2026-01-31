@@ -91,6 +91,21 @@ export default defineType({
       type: "array",
       of: [{ type: "block" }],
       hidden: ({ document }) => document?.postType !== "article"
+    }),
+    defineField({
+      name: "tags",
+      title: "标签 (Tags)",
+      type: "array",
+      of: [{ type: "string" }],
+      options: {
+        layout: "tags"
+      }
+    }),
+    defineField({
+      name: "publishedAt",
+      title: "发布时间",
+      type: "datetime",
+      initialValue: () => new Date().toISOString()
     })
   ]
 });

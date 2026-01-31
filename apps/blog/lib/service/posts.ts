@@ -8,7 +8,10 @@ const LIST_QUERY = `*[_type == "post"] | order(publishedAt desc) {
   "slug": slug.current,
   publishedAt,
   excerpt,
-  mainImage
+  mainImage,
+  coverImage,
+  tags,
+  status
 }`;
 
 // GROQ 查询：获取单篇文章（详情用，包含全文）
@@ -18,8 +21,14 @@ const POST_BY_SLUG_QUERY = `*[_type == "post" && slug.current == $slug][0]{
   publishedAt,
   excerpt,
   content,
-  mainImage
+  mainImage,
+  coverImage,
+  tags,
+  status
 }`;
+
+// GROQ 查询：获取所有标签
+const ALL_TAGS_QUERY = `*[_type == "post" && defined(tags)].tags[]`;
 
 /**
  * 统一的文章服务
@@ -73,6 +82,7 @@ export const postService = {
         if (sanityPost) {
           return {
             ...sanityPost,
+            body: sanityPost.content, // 映射 content -> body
             source: "sanity",
           };
         }
@@ -110,5 +120,23 @@ export const postService = {
   async getLatestPosts(limit: number = 3): Promise<Post[]> {
     const allPosts = await this.getAllPosts();
     return allPosts.slice(0, limit);
+  },
+
+  /**
+   * 获取所有标签（去重）
+   */
+  async getAllTags(): Promise<string[]> {
+    try {
+      if (sanityReadClient) {
+        const tags = await sanityReadClient.fetch(ALL_TAGS_QUERY);
+        if (tags && tags.length > 0) {
+          // 去重并排序
+          return [...new Set(tags.filter(Boolean))].sort();
+        }
+      }
+    } catch (error) {
+      console.warn("[postService] Fetch tags failed, returning empty array", error);
+    }
+    return [];
   }
 };
