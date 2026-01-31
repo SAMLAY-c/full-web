@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sanityReadClient, sanityWriteClient } from "@/lib/sanity/client";
+import { revalidatePath } from "next/cache";
 
 /**
  * GET /api/posts
@@ -110,9 +111,17 @@ export async function POST(request: NextRequest) {
 
     const result = await sanityWriteClient.create(doc);
 
+    // ✅ 自动刷新缓存（仅已发布文章）
+    if (doc.status === "published") {
+      revalidatePath("/blog");
+      revalidatePath("/");
+      revalidatePath(`/blog/${doc.slug.current}`);
+    }
+
     return NextResponse.json({
       success: true,
       data: result,
+      revalidated: doc.status === "published",
     });
   } catch (error) {
     console.error("POST /api/posts error:", error);
@@ -162,10 +171,23 @@ export async function PATCH(request: NextRequest) {
       )
     );
 
+    // ✅ 自动刷新缓存（如果更新了已发布文章）
+    // 批量更新时，刷新博客列表
+    revalidatePath("/blog");
+    revalidatePath("/");
+
+    // 如果更新包含 slug，也刷新对应的文章详情页
+    for (const result of results) {
+      if (result.slug?.current) {
+        revalidatePath(`/blog/${result.slug.current}`);
+      }
+    }
+
     return NextResponse.json({
       success: true,
       count: results.length,
       data: results,
+      revalidated: true,
     });
   } catch (error) {
     console.error("PATCH /api/posts error:", error);
@@ -206,10 +228,16 @@ export async function DELETE(request: NextRequest) {
       ids.map((id) => sanityWriteClient.delete(id))
     );
 
+    // ✅ 自动刷新缓存
+    revalidatePath("/blog");
+    revalidatePath("/");
+
     return NextResponse.json({
       success: true,
       count: results.length,
       data: results,
+      revalidated: true,
+      message: "文章已删除，缓存已刷新",
     });
   } catch (error) {
     console.error("DELETE /api/posts error:", error);

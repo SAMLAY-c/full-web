@@ -3,8 +3,10 @@ import { postService } from "../../../lib/service/posts";
 import { urlFor } from "../../../lib/sanity.image";
 import PostBody from "../../../components/post-body";
 
-// ✅ ISR: 每 60 秒检查一次文章内容修正
-export const revalidate = 60;
+// ✅ 缓存策略：ISR 增量静态再生成
+// 每 3600 秒（1 小时）检查一次文章更新
+// 文章内容不常更新，可以缓存更长时间
+export const revalidate = 3600;
 
 // ✅ SSG: 告诉 Next.js 需要静态生成哪些 slug
 export async function generateStaticParams() {

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sanityReadClient, sanityWriteClient } from "@/lib/sanity/client";
+import { revalidatePath } from "next/cache";
 
 /**
  * GET /api/posts/[slug]
@@ -115,9 +116,20 @@ export async function PATCH(
       .set(updates)
       .commit({ autoGenerateArrayKeys: true });
 
+    // ✅ 自动刷新缓存
+    revalidatePath("/blog");
+    revalidatePath("/");
+    revalidatePath(`/blog/${slug}`);
+
+    // 如果更新了 slug，也刷新新的路径
+    if (body.slug && body.slug !== slug) {
+      revalidatePath(`/blog/${body.slug}`);
+    }
+
     return NextResponse.json({
       success: true,
       data: result,
+      revalidated: true,
     });
   } catch (error) {
     console.error(`PATCH /api/posts/${params.slug} error:`, error);
@@ -163,9 +175,15 @@ export async function DELETE(
 
     await sanityWriteClient.delete(existingPost);
 
+    // ✅ 自动刷新缓存
+    revalidatePath("/blog");
+    revalidatePath("/");
+    revalidatePath(`/blog/${slug}`);
+
     return NextResponse.json({
       success: true,
       message: "Post deleted successfully",
+      revalidated: true,
     });
   } catch (error) {
     console.error(`DELETE /api/posts/${params.slug} error:`, error);

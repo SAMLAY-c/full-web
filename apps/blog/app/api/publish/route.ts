@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { sanityWriteClient } from "../../../lib/sanity/client";
+import { revalidatePath } from "next/cache";
 
 type PublishPayload = {
   title: string;
@@ -50,5 +51,20 @@ export async function POST(request: Request) {
     ...doc
   });
 
-  return NextResponse.json({ ok: true, result });
+  // ✅ 自动刷新缓存
+  // 如果是已发布文章，刷新博客列表和文章详情页
+  if (status === "published") {
+    revalidatePath("/blog");
+    revalidatePath("/");
+    revalidatePath(`/blog/${body.slug}`);
+  }
+
+  return NextResponse.json({
+    ok: true,
+    result,
+    revalidated: status === "published",
+    message: status === "published"
+      ? "文章已发布并刷新缓存"
+      : "草稿已保存"
+  });
 }
