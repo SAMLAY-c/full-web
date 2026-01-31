@@ -109,10 +109,13 @@ export default defineType({
     }),
     defineField({
       name: "isPinned",
-      title: "是否置顶",
+      title: "📌 是否置顶",
       type: "boolean",
       initialValue: false,
-      description: "开启后，该文章将显示在列表顶部"
+      description: "开启后，该文章将显示在列表顶部",
+      options: {
+        layout: "switch"
+      }
     }),
     defineField({
       name: "pinOrder",

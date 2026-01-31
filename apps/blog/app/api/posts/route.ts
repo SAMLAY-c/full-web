@@ -36,7 +36,7 @@ export async function GET(request: NextRequest) {
       filters.push(`"${tag}" in tags`);
     }
 
-    const query = `*[${filters.join(" && ")}] | order(isPinned desc, pinOrder asc, publishedAt desc)${
+    const query = `*[${filters.join(" && ")}] | order(coalesce(isPinned, false) desc, pinOrder asc, publishedAt desc)${
       limit ? ` [0...${parseInt(limit)}]` : ""
     } {
       _id,

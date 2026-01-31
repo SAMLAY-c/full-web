@@ -3,8 +3,8 @@ import { getPost as getLocalPost, getLatestPosts as getLocalLatestPosts } from "
 import type { Post } from "../types";
 
 // GROQ 查询：获取所有文章（列表用，不包含全文）
-// 先按置顶排序（isPinned true优先，然后按pinOrder升序），再按发布时间倒序
-const LIST_QUERY = `*[_type == "post" && status == "published"] | order(isPinned desc, pinOrder asc, publishedAt desc) {
+// 先按置顶排序（coalesce处理null值，确保isPinned=true的排在最前），然后按pinOrder，最后按发布时间
+const LIST_QUERY = `*[_type == "post" && status == "published"] | order(coalesce(isPinned, false) desc, pinOrder asc, publishedAt desc) {
   title,
   "slug": slug.current,
   publishedAt,
