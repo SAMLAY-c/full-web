@@ -1,11 +1,20 @@
 "use client";
 
 import { PortableText, type PortableTextComponents } from "@portabletext/react";
-import CodeBlock from "./CodeBlock";
+import CodeBlock from "../../../components/CodeBlock";
 import { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 
-const components: PortableTextComponents = {
+/**
+ * 默认模板的 PortableText 组件配置
+ *
+ * 包含所有自定义的渲染器：
+ * - Marks: code, link, strong, em, mark
+ * - Blocks: h1-h4, paragraphs, blockquotes
+ * - Lists: bullet, number
+ * - Types: code blocks, images, callouts, details
+ */
+export const components: PortableTextComponents = {
   marks: {
     code: ({ children }) => (
       <code className="rounded-md bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-brand-600 before:content-none after:content-none dark:bg-gray-800 dark:text-brand-400">
@@ -144,7 +153,6 @@ const components: PortableTextComponents = {
       );
     },
 
-
     // Custom callout block
     callout: ({ value }) => {
       const { type = "info", title } = value || {};
@@ -226,20 +234,3 @@ const components: PortableTextComponents = {
     },
   },
 };
-
-interface PostBodyProps {
-  content: any;
-  className?: string;
-  components?: PortableTextComponents; // 新增：可选的自定义components
-}
-
-export default function PostBody({ content, className, components: customComponents }: PostBodyProps) {
-  // 使用传入的customComponents，如果没有则使用默认的components
-  const componentsToUse = customComponents || components;
-
-  return (
-    <div className={`prose prose-lg mx-auto max-w-none dark:prose-invert ${className ?? ""}`.trim()}>
-      <PortableText value={content} components={componentsToUse} />
-    </div>
-  );
-}

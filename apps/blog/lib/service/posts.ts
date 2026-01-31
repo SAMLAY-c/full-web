@@ -14,7 +14,8 @@ const LIST_QUERY = `*[_type == "post" && status == "published"] | order(coalesce
   tags,
   status,
   isPinned,
-  pinOrder
+  pinOrder,
+  markdownTheme
 }`;
 
 // GROQ 查询：获取单篇文章（详情用，包含全文）
@@ -27,7 +28,8 @@ const POST_BY_SLUG_QUERY = `*[_type == "post" && slug.current == $slug && status
   mainImage,
   coverImage,
   tags,
-  status
+  status,
+  markdownTheme
 }`;
 
 /**
@@ -130,7 +132,7 @@ export const postService = {
       if (sanityReadClient) {
         // 只从已发布文章中获取标签
         const TAGS_QUERY = `*[_type == "post" && status == "published" && defined(tags)].tags[]`;
-        const tags = await sanityReadClient.fetch(TAGS_QUERY);
+        const tags = await sanityReadClient.fetch(TAGS_QUERY) as string[];
         if (tags && tags.length > 0) {
           // 去重并排序
           return [...new Set(tags.filter(Boolean))].sort();

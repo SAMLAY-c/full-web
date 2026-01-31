@@ -1,35 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --ink: #0b1b2b;
-  --paper: #f7fbff;
-}
-
-body {
-  background: radial-gradient(circle at top, #ffffff 0%, #f1f7ff 48%, #e7f1ff 100%);
-  color: var(--ink);
-  font-family: var(--font-body);
-}
-
-h1,
-h2,
-h3,
-strong {
-  font-family: var(--font-display);
-}
-
-/* Hide scrollbar but keep functionality */
-.scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;  /* Chrome, Safari, Opera */
-}
-
+/**
+ * 默认模板的全局CSS样式
+ *
+ * 包含markdown渲染相关的所有CSS：
+ * - 深色模式支持
+ * - Prose元素字体优化
+ * - 动画定义
+ * - 选择颜色
+ * - 过渡效果
+ */
+export const globalStyles = `
 /* Dark mode support */
 .dark {
   color-scheme: dark;
@@ -89,3 +68,4 @@ strong {
   background-color: rgb(49 130 206 / 0.5);
   color: inherit;
 }
+`;

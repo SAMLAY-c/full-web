@@ -169,7 +169,7 @@ export async function PATCH(request: NextRequest) {
     // 批量更新
     const results = await Promise.all(
       ids.map((id) =>
-        sanityWriteClient.patch(id).set(updates).commit({ autoGenerateArrayKeys: true })
+        sanityWriteClient!.patch(id).set(updates).commit({ autoGenerateArrayKeys: true })
       )
     );
 
@@ -227,7 +227,7 @@ export async function DELETE(request: NextRequest) {
 
     // 批量删除
     const results = await Promise.all(
-      ids.map((id) => sanityWriteClient.delete(id))
+      ids.map((id) => sanityWriteClient!.delete(id))
     );
 
     // ✅ 自动刷新缓存

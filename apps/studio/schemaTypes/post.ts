@@ -124,6 +124,21 @@ export default defineType({
       hidden: ({ document }) => !document?.isPinned,
       description: "数字越小越靠前，例如：1, 2, 3...",
       initialValue: 99
+    }),
+    defineField({
+      name: "markdownTheme",
+      title: "Markdown样式主题",
+      type: "string",
+      description: "选择文章使用的Markdown渲染样式主题",
+      options: {
+        list: [
+          { title: "默认主题", value: "default" },
+          { title: "极简主题", value: "minimal" },
+        ],
+        layout: "dropdown",
+      },
+      initialValue: "default",
+      validation: (Rule) => Rule.required().error("请选择一个Markdown主题"),
     })
   ]
 });

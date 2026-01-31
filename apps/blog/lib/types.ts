@@ -1,3 +1,5 @@
+import type { ThemeId } from "./markdown-templates/theme-mapping";
+
 export interface Post {
   slug: string;
   title: string;
@@ -9,4 +11,9 @@ export interface Post {
   tags?: string[];
   status?: "draft" | "published";
   source: "sanity" | "local";
+  /**
+   * Markdown样式主题ID
+   * 仅在 source === "sanity" 时存在
+   */
+  markdownTheme?: ThemeId;
 }

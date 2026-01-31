@@ -19,7 +19,7 @@ interface HomeContentProps {
     heroCtaText: string;
     hookTitle: string;
     hookDescription: string;
-    hookQrCode: any;
+    hookQrCode?: any;
   };
 }
 
