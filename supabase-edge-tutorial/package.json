@@ -1,0 +1,23 @@
+{
+  "name": "supabase-edge-gemini-proxy",
+  "version": "1.0.0",
+  "description": "Supabase Edge Function for Gemini API proxy with automatic key rotation",
+  "scripts": {
+    "deploy": "supabase functions deploy super-task --no-verify-jwt",
+    "dev": "supabase functions serve super-task",
+    "login": "supabase login",
+    "link": "supabase link"
+  },
+  "devDependencies": {
+    "supabase": "^1.142.0"
+  },
+  "keywords": [
+    "supabase",
+    "edge-function",
+    "gemini",
+    "api-proxy",
+    "key-management"
+  ],
+  "author": "",
+  "license": "MIT"
+}

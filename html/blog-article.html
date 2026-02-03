@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>响应式博客文章页面 - 预览</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f9fafb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- 顶部导航 -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold">B</span>
+                </div>
+                <span class="font-bold text-gray-900">博客预览</span>
+            </div>
+            <div class="text-sm text-gray-500">
+                响应式布局演示
+            </div>
+        </div>
+    </nav>
+
+    <!-- 设备预览切换 -->
+    <div class="bg-gray-800 text-white py-2 px-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <span class="text-sm">💡 提示：调整浏览器窗口大小查看响应式效果</span>
+            <div class="flex gap-4 text-sm">
+                <span class="flex items-center gap-1">📱 手机</span>
+                <span class="flex items-center gap-1">📱 平板</span>
+                <span class="flex items-center gap-1">💻 桌面</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主要内容区 -->
+    <article class="max-w-4xl mx-auto px-4 py-8">
+        
+        <!-- 文章头部卡片 -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 mb-6 transform transition-all hover:shadow-md">
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+                <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium">技术指南</span>
+                <span class="text-gray-500 text-sm">2026年1月15日</span>
+                <span class="text-gray-400">·</span>
+                <span class="text-gray-500 text-sm">阅读时间 8 分钟</span>
+            </div>
+            
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+                现代Web开发最佳实践指南
+            </h1>
+            
+            <p class="text-lg text-gray-600 leading-relaxed">
+                探索现代Web开发中的核心概念、最佳实践和性能优化技巧。本文将帮助你构建更快、更可维护的Web应用，掌握最新的前端技术栈。
+            </p>
+        </div>
+
+        <!-- 概念网格 - 3列 -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-500 text-sm">01</span>
+                核心概念
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- 概念1 -->
+                <div class="p-4 border border-gray-100 rounded-xl hover:shadow-lg hover:border-orange-200 transition-all duration-300 cursor-pointer group">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-3 group-hover:bg-orange-500 transition-colors">
+                        <svg class="w-6 h-6 text-orange-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">响应式优先</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">采用移动优先的设计理念，确保在所有设备上都能提供出色的用户体验和流畅的交互。</p>
+                </div>
+
+                <!-- 概念2 -->
+                <div class="p-4 border border-gray-100 rounded-xl hover:shadow-lg hover:border-orange-200 transition-all duration-300 cursor-pointer group">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-3 group-hover:bg-orange-500 transition-colors">
+                        <svg class="w-6 h-6 text-orange-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">组件化架构</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">将UI拆分为独立的、可复用的组件，提高代码的可维护性和团队协作效率。</p>
+                </div>
+
+                <!-- 概念3 -->
+                <div class="p-4 border border-gray-100 rounded-xl hover:shadow-lg hover:border-orange-200 transition-all duration-300 cursor-pointer group">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-3 group-hover:bg-orange-500 transition-colors">
+                        <svg class="w-6 h-6 text-orange-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-gray-900 mb-2">性能优化</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">通过懒加载、代码分割和缓存策略，显著提升应用加载速度和运行效率。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 步骤列表 -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-500 text-sm">02</span>
+                实施步骤
+            </h2>
+            
+            <!-- 步骤 1 -->
+            <div class="flex gap-4 mb-8 last:mb-0">
+                <div class="flex-shrink-0">
+                    <div class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg shadow-orange-200">
+                        1
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-gray-900 mb-2 text-lg">项目初始化与环境配置</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">使用现代构建工具（如Vite或Next.js）初始化项目，配置TypeScript、ESLint和Prettier等开发工具，建立标准化的开发环境。</p>
+                    <div class="bg-gray-100 h-48 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300 hover:border-orange-400 transition-colors group">
+                        <div class="text-center">
+                            <svg class="w-12 h-12 text-gray-400 mx-auto mb-2 group-hover:text-orange-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <span class="text-gray-400 text-sm group-hover:text-orange-600">项目结构示意图</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤 2 -->
+            <div class="flex gap-4 mb-8 last:mb-0">
+                <div class="flex-shrink-0">
+                    <div class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg shadow-orange-200">
+                        2
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-gray-900 mb-2 text-lg">设计系统与组件库搭建</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">建立统一的设计系统，包括颜色、字体、间距等设计令牌，并创建基础的UI组件库，确保整个产品的一致性。</p>
+                    <div class="bg-gray-100 h-48 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300 hover:border-orange-400 transition-colors group">
+                        <div class="text-center">
+                            <svg class="w-12 h-12 text-gray-400 mx-auto mb-2 group-hover:text-orange-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                            </svg>
+                            <span class="text-gray-400 text-sm group-hover:text-orange-600">组件库预览图</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤 3 -->
+            <div class="flex gap-4">
+                <div class="flex-shrink-0">
+                    <div class="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg shadow-lg shadow-orange-200">
+                        3
+                    </div>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-gray-900 mb-2 text-lg">性能优化与部署</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">实施代码分割、图片优化、懒加载等性能优化策略，并配置CI/CD流水线实现自动化部署，确保高质量交付。</p>
+                    <div class="bg-gray-100 h-48 rounded-lg flex items-center justify-center border-2 border-dashed border-gray-300 hover:border-orange-400 transition-colors group">
+                        <div class="text-center">
+                            <svg class="w-12 h-12 text-gray-400 mx-auto mb-2 group-hover:text-orange-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"/>
+                            </svg>
+                            <span class="text-gray-400 text-sm group-hover:text-orange-600">性能监控仪表板</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 代码块 - 深色主题 -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <span class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-500 text-sm">03</span>
+                代码示例
+            </h2>
+            <p class="text-gray-600 mb-4">以下是一个现代化的React组件示例，展示了组件化开发的最佳实践：</p>
+            
+            <div class="bg-gray-900 rounded-lg overflow-hidden shadow-inner">
+                <!-- 代码窗口标题栏 -->
+                <div class="bg-gray-800 px-4 py-2 flex items-center gap-2 border-b border-gray-700">
+                    <div class="flex gap-1.5">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="text-gray-400 text-sm ml-2">Button.tsx</span>
+                </div>
+                <!-- 代码内容 -->
+                <div class="p-4 overflow-x-auto">
+                    <pre class="text-green-400 text-sm font-mono leading-relaxed"><code><span class="text-purple-400">// Button.tsx</span> - 可复用的按钮组件
+<span class="text-blue-400">import</span> React <span class="text-blue-400">from</span> <span class="text-yellow-300">'react'</span>;
+
+<span class="text-blue-400">interface</span> <span class="text-yellow-300">ButtonProps</span> {
+  variant?: <span class="text-yellow-300">'primary'</span> | <span class="text-yellow-300">'secondary'</span> | <span class="text-yellow-300">'outline'</span>;
+  size?: <span class="text-yellow-300">'sm'</span> | <span class="text-yellow-300">'md'</span> | <span class="text-yellow-300">'lg'</span>;
+  children: React.ReactNode;
+  onClick?: () => <span class="text-blue-400">void</span>;
+}
+
+<span class="text-blue-400">export const</span> <span class="text-yellow-300">Button</span>: React.FC&lt;ButtonProps&gt; = ({
+  variant = <span class="text-yellow-300">'primary'</span>,
+  size = <span class="text-yellow-300">'md'</span>,
+  children,
+  onClick
+}) => {
+  <span class="text-blue-400">const</span> baseStyles = <span class="text-yellow-300">'rounded-lg font-medium transition-all duration-200'</span>;
+  
+  <span class="text-blue-400">const</span> variants = {
+    primary: <span class="text-yellow-300">'bg-orange-500 text-white hover:bg-orange-600'</span>,
+    secondary: <span class="text-yellow-300">'bg-gray-200 text-gray-800 hover:bg-gray-300'</span>,
+    outline: <span class="text-yellow-300">'border-2 border-orange-500 text-orange-500'</span>
+  };
+  
+  <span class="text-blue-400">const</span> sizes = {
+    sm: <span class="text-yellow-300">'px-3 py-1.5 text-sm'</span>,
+    md: <span class="text-yellow-300">'px-4 py-2 text-base'</span>,
+    lg: <span class="text-yellow-300">'px-6 py-3 text-lg'</span>
+  };
+
+  <span class="text-blue-400">return</span> (
+    &lt;button
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]}`}
+      onClick={onClick}
+    &gt;
+      {children}
+    &lt;/button&gt;
+  );
+};</code></pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- 对比表格 -->
+        <div class="bg-white rounded-2xl shadow-sm p-6 mb-6">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 bg-orange-100 rounded-lg flex items-center justify-center text-orange-500 text-sm">04</span>
+                传统 vs 现代开发方式对比
+            </h2>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="bg-gray-50 border-b-2 border-gray-200">
+                            <th class="text-left py-4 px-4 font-bold text-gray-900 rounded-tl-lg">特性对比</th>
+                            <th class="text-center py-4 px-4 font-bold text-red-600 w-1/3">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span class="text-red-500 text-xl">✗</span>
+                                    <span>传统方式</span>
+                                </div>
+                            </th>
+                            <th class="text-center py-4 px-4 font-bold text-green-600 w-1/3 rounded-tr-lg">
+                                <div class="flex items-center justify-center gap-2">
+                                    <span class="text-green-500 text-xl">✓</span>
+                                    <span>现代方式</span>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-4 px-4 text-gray-700 font-medium">组件复用</td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="text-red-500 text-xl font-bold">✗</span>
+                                <span class="block text-sm text-gray-500 mt-1">重复编写代码</span>
+                            </td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="text-green-500 text-xl font-bold">✓</span>
+                                <span class="block text-sm text-gray-500 mt-1">组件化复用</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-4 px-4 text-gray-700 font-medium">类型安全</td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="text-red-500 text-xl font-bold">✗</span>
+                                <span class="block text-sm text-gray-500 mt-1">运行时错误频发</span>
+                            </td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="text-green-500 text-xl font-bold">✓</span>
+                                <span class="block text-sm text-gray-500 mt-1">TypeScript静态检查</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-4 px-4 text-gray-700 font-medium">性能优化</td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="text-red-500 text-xl font-bold">✗</span>
+                                <span class="block text-sm text-gray-500 mt-1">手动优化，效率低</span>
+                            </td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="text-green-500 text-xl font-bold">✓</span>
+                                <span class="block text-sm text-gray-500 mt-1">自动化构建优化</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-4 px-4 text-gray-700 font-medium">开发体验</td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="text-red-500 text-xl font-bold">✗</span>
+                                <span class="block text-sm text-gray-500 mt-1">配置复杂，工具分散</span>
+                            </td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="text-green-500 text-xl font-bold">✓</span>
+                                <span class="block text-sm text-gray-500 mt-1">开箱即用，工具集成</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="py-4 px-4 text-gray-700 font-medium rounded-bl-lg">部署流程</td>
+                            <td class="py-4 px-4 text-center">
+                                <span class="text-red-500 text-xl font-bold">✗</span>
+                                <span class="block text-sm text-gray-500 mt-1">手动上传，容易出错</span>
+                            </td>
+                            <td class="py-4 px-4 text-center rounded-br-lg">
+                                <span class="text-green-500 text-xl font-bold">✓</span>
+                                <span class="block text-sm text-gray-500 mt-1">CI/CD自动化部署</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 摘要框 - 橙色渐变 -->
+        <div class="bg-gradient-to-br from-orange-400 via-orange-500 to-orange-600 rounded-2xl shadow-lg p-8 text-white relative overflow-hidden">
+            <!-- 装饰背景 -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24 blur-2xl"></div>
+            
+            <div class="relative flex items-start gap-4">
+                <div class="flex-shrink-0 w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-inner">
+                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-2xl mb-3">核心结论</h3>
+                    <p class="text-orange-50 leading-relaxed text-lg mb-4">
+                        现代Web开发强调<strong class="text-white">组件化、类型安全和自动化</strong>。通过采用现代框架（如React、Vue）和工具链，
+                        我们可以构建更可靠、高性能且易于维护的Web应用。关键在于建立良好的开发实践，
+                        包括代码审查、自动化测试和持续集成，以确保代码质量和团队协作效率。
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-medium border border-white/30">组件化</span>
+                        <span class="bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-medium border border-white/30">类型安全</span>
+                        <span class="bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-medium border border-white/30">自动化</span>
+                        <span class="bg-white/20 backdrop-blur-sm px-4 py-1.5 rounded-full text-sm font-medium border border-white/30">性能优化</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 文章底部信息 -->
+        <div class="mt-8 pt-6 border-t border-gray-200">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-md">
+                        技
+                    </div>
+                    <div>
+                        <p class="font-bold text-gray-900 text-lg">技术团队</p>
+                        <p class="text-sm text-gray-500">高级前端工程师 · 专注React生态系统</p>
+                    </div>
+                </div>
+                <div class="flex gap-3">
+                    <button class="bg-orange-500 text-white px-6 py-2.5 rounded-lg hover:bg-orange-600 transition-all duration-300 font-medium shadow-md hover:shadow-lg transform hover:-translate-y-0.5 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                        </svg>
+                        分享文章
+                    </button>
+                    <button class="border-2 border-gray-300 text-gray-700 px-6 py-2.5 rounded-lg hover:border-orange-500 hover:text-orange-500 transition-all duration-300 font-medium flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                        </svg>
+                        收藏
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </article>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-gray-400 py-8 mt-12">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <p class="text-sm">© 2026 技术博客 · 使用 HTML + Tailwind CSS 构建</p>
+        </div>
+    </footer>
+
+    <script>
+        // 添加一些简单的交互效果
+        document.querySelectorAll('.group').forEach(el => {
+            el.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            el.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

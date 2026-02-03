@@ -8,6 +8,7 @@ export interface Post {
   coverImage?: any;
   mainImage?: any;
   body?: any;
+  htmlContent?: string;
   tags?: string[];
   status?: "draft" | "published";
   source: "sanity" | "local";

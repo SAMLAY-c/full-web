@@ -1,0 +1,15 @@
+{
+  "unsplash": {
+    "apiKey": "YOUR_UNSPLASH_API_KEY",
+    "baseUrl": "https://api.unsplash.com",
+    "perPage": 10
+  },
+  "pexels": {
+    "apiKey": "YOUR_PEXELS_API_KEY",
+    "baseUrl": "https://api.pexels.com"
+  },
+  "openai": {
+    "apiKey": "YOUR_OPENAI_API_KEY",
+    "model": "gpt-4"
+  }
+}

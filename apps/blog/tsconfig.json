@@ -20,6 +20,8 @@
   "include": [
     "app",
     "components",
+    "types",
+    "lib",
     "next-env.d.ts",
     ".next/types/**/*.ts"
   ],

@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Noto_Sans_SC } from "next/font/google";
+import { Inter, Merriweather } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/components/providers/auth-provider";
 
-const display = Playfair_Display({
+// 统一设计系统字体：Inter用于标题，Merriweather用于正文
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["400", "500", "600", "700"]
+  variable: "--font-sans",
+  display: "swap",
 });
 
-const body = Noto_Sans_SC({
+const merriweather = Merriweather({
   subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["300", "400", "500", "700"]
+  variable: "--font-serif",
+  weight: ["300", "400", "700", "900"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,8 +28,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="zh-CN" className={`${display.variable} ${body.variable}`}>
-      <body>{children}</body>
+    <html lang="zh-CN" className={`${inter.variable} ${merriweather.variable}`}>
+      <body className="font-sans antialiased">
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

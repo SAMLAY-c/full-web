@@ -1,0 +1,45 @@
+{
+  "name": "doc-beautifier",
+  "version": "1.0.0",
+  "description": "将普通文档自动转换为精美HTML页面的智能系统",
+  "main": "src/core/index.js",
+  "bin": {
+    "doc-beautify": "./bin/doc-beautify.js"
+  },
+  "scripts": {
+    "start": "node bin/doc-beautify.js",
+    "test": "jest",
+    "dev": "node scripts/dev-server.js",
+    "setup": "node scripts/setup.js"
+  },
+  "keywords": [
+    "document",
+    "markdown",
+    "html",
+    "beautifier",
+    "template",
+    "converter"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^11.0.0",
+    "chalk": "^4.1.2",
+    "fs-extra": "^11.1.1",
+    "glob": "^10.3.0",
+    "jsdom": "^22.1.0",
+    "markdown-it": "^13.0.1",
+    "mammoth": "^1.6.0",
+    "node-fetch": "^2.7.0",
+    "openai": "^4.0.0",
+    "sharp": "^0.32.0",
+    "yaml": "^2.3.0"
+  },
+  "devDependencies": {
+    "jest": "^29.6.0",
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

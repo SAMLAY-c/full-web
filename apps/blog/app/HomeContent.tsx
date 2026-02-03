@@ -6,8 +6,12 @@ import BlogCard from "@/components/business/BlogCard";
 import SearchDialog from "@/components/business/SearchDialog";
 import type { Post } from "@/lib/types";
 
+interface PostWithCoverUrl extends Post {
+  coverUrl?: string | null;
+}
+
 interface HomeContentProps {
-  postsWithCoverUrls: Post[];
+  postsWithCoverUrls: PostWithCoverUrl[];
   categories: Array<{
     slug: string;
     name: string;
@@ -56,22 +60,22 @@ export default function HomeContent({
               {/* Left Content */}
               <div className="animate-slide-left">
                 {/* Badge */}
-                <div className="inline-flex items-center gap-2 bg-brand-500/10 text-brand-500 px-5 py-2.5 rounded-lg text-sm font-medium mb-6">
+                <div className="inline-flex items-center gap-2 bg-primary-500/10 text-primary-600 px-5 py-2.5 rounded-lg text-sm font-medium mb-6">
                   <span className="text-xs">✦</span>
                   探索生活的无限可能
                 </div>
 
                 {/* Title */}
-                <h1 className="text-5xl sm:text-6xl lg:text-[72px] font-bold leading-[1.1] text-text-dark mb-6 font-display">
+                <h1 className="text-5xl sm:text-6xl lg:text-[72px] font-bold leading-[1.1] text-neutral-800 mb-6 font-sans">
                   {globalConfig.heroTitle.split("，")[0] || "用文字记录"}
                   <br />
-                  <span className="bg-gradient-to-r from-brand-500 to-brand-400 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-primary-500 to-primary-400 bg-clip-text text-transparent">
                     {globalConfig.heroTitle.split("，")[1] || "每一个精彩瞬间"}
                   </span>
                 </h1>
 
                 {/* Subtitle */}
-                <p className="text-lg sm:text-xl text-text-medium leading-relaxed mb-8 max-w-lg">
+                <p className="text-lg sm:text-xl text-neutral-600 leading-relaxed mb-8 max-w-lg font-serif">
                   {globalConfig.heroSubtitle}
                 </p>
 
@@ -93,8 +97,8 @@ export default function HomeContent({
                       className="w-full h-[400px] sm:h-[500px] object-cover"
                     />
                   ) : (
-                    <div className="w-full h-[400px] sm:h-[500px] bg-gradient-to-br from-brand-100 to-brand-200 flex items-center justify-center">
-                      <span className="text-8xl font-bold text-brand-300/50">☀</span>
+                    <div className="w-full h-[400px] sm:h-[500px] bg-gradient-to-br from-primary-100 to-primary-200 flex items-center justify-center">
+                      <span className="text-8xl font-bold text-primary-300/50">☀</span>
                     </div>
                   )}
                 </div>
@@ -102,16 +106,16 @@ export default function HomeContent({
                 {/* Stats Card */}
                 <div className="absolute -bottom-8 -left-8 bg-white rounded-[32px] p-6 shadow-medium flex gap-10">
                   <div className="text-center">
-                    <span className="block text-3xl font-bold text-brand-500 font-display">200+</span>
-                    <span className="text-sm text-text-light">精选文章</span>
+                    <span className="block text-3xl font-bold text-primary-500 font-sans">200+</span>
+                    <span className="text-sm text-neutral-400">精选文章</span>
                   </div>
                   <div className="text-center">
-                    <span className="block text-3xl font-bold text-brand-500 font-display">50K</span>
-                    <span className="text-sm text-text-light">月度读者</span>
+                    <span className="block text-3xl font-bold text-primary-500 font-sans">50K</span>
+                    <span className="text-sm text-neutral-400">月度读者</span>
                   </div>
                   <div className="text-center">
-                    <span className="block text-3xl font-bold text-brand-500 font-display">15</span>
-                    <span className="text-sm text-text-light">内容分类</span>
+                    <span className="block text-3xl font-bold text-primary-500 font-sans">15</span>
+                    <span className="text-sm text-neutral-400">内容分类</span>
                   </div>
                 </div>
               </div>
@@ -125,10 +129,10 @@ export default function HomeContent({
             <div className="mx-auto max-w-[1400px]">
               {/* Section Header */}
               <div className="flex items-end justify-between mb-12">
-                <h2 className="text-4xl sm:text-5xl font-bold text-text-dark font-display">
-                  精选<span className="text-brand-500">推荐</span>
+                <h2 className="text-4xl sm:text-5xl font-bold text-neutral-800 font-sans">
+                  精选<span className="text-primary-500">推荐</span>
                 </h2>
-                <a href="/blog" className="text-brand-500 font-semibold flex items-center gap-2 hover:gap-3 transition-all">
+                <a href="/blog" className="text-primary-600 font-semibold flex items-center gap-2 hover:gap-3 transition-all">
                   查看全部 →
                 </a>
               </div>
@@ -147,7 +151,7 @@ export default function HomeContent({
                       className="w-full h-[500px] object-cover"
                     />
                   ) : (
-                    <div className="w-full h-[500px] bg-gradient-to-br from-brand-50 to-brand-100" />
+                    <div className="w-full h-[500px] bg-gradient-to-br from-primary-50 to-primary-100" />
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-10">
@@ -243,7 +247,7 @@ export default function HomeContent({
                     excerpt={post.excerpt}
                     publishedAt={post.publishedAt}
                     tags={post.tags}
-                    coverUrl={(post as any).coverUrl}
+                    coverUrl={post.coverUrl}
                   />
                 ))}
               </div>

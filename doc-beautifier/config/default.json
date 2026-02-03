@@ -1,0 +1,42 @@
+{
+  "version": "1.0.0",
+  "templates": {
+    "default": "magazine",
+    "available": ["magazine", "minimal", "tech", "literary", "corporate"]
+  },
+  "themes": {
+    "default": "light",
+    "available": ["light", "dark", "warm", "cool", "vibrant"]
+  },
+  "images": {
+    "default": "search",
+    "providers": {
+      "search": ["unsplash", "pexels"],
+      "ai": ["openai", "stability"]
+    },
+    "maxImagesPerArticle": 10,
+    "fallbackEnabled": true
+  },
+  "output": {
+    "minify": false,
+    "inlineAssets": true,
+    "addSourceMap": false
+  },
+  "render": {
+    "animations": true,
+    "lazyLoadImages": true,
+    "responsiveImages": true,
+    "readingProgress": true,
+    "tocNavigation": true
+  },
+  "typography": {
+    "baseFontSize": 18,
+    "lineHeight": 1.7,
+    "maxWidth": "720px",
+    "fontFamilies": {
+      "heading": "system-ui, -apple-system, sans-serif",
+      "body": "system-ui, -apple-system, sans-serif",
+      "code": "monospace"
+    }
+  }
+}

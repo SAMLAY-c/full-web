@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { Unbounded, Hind } from "next/font/google";
+import { Chakra_Petch, Outfit } from "next/font/google";
 import "./globals.css";
 
-const display = Unbounded({
+const display = Chakra_Petch({
   subsets: ["latin"],
   variable: "--font-display",
-  weight: ["400", "600", "700"]
+  weight: ["400", "500", "600", "700"]
 });
 
-const body = Hind({
+const body = Outfit({
   subsets: ["latin"],
   variable: "--font-body",
-  weight: ["300", "400", "600"]
+  weight: ["300", "400", "500", "600"]
 });
 
 export const metadata: Metadata = {
-  title: "Platform | Private Library",
+  title: "The Insider Library | X 的私密知识库",
   description: "Member-only SOPs, resources, and delivery playbooks."
 };
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html lang="zh-CN" className={`${display.variable} ${body.variable}`}>
       <body>{children}</body>
     </html>
   );

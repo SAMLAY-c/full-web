@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Insider Library - Design System Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Design System Variables */
+    :root {
+      --slate-950: #0a0e1a;
+      --slate-900: #111827;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-400: #94a3b8;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      
+      --coral-500: #ff6b6b;
+      --coral-400: #ff8585;
+      --coral-600: #f15a5a;
+      --coral-300: #ffb3b3;
+      
+      --mint-500: #00d9a3;
+      --mint-400: #33e0b5;
+      --mint-600: #00b386;
+      
+      --background: var(--slate-950);
+      --surface: var(--slate-900);
+      --surface-elevated: var(--slate-800);
+      --surface-highlight: var(--slate-700);
+      
+      --text-primary: var(--slate-100);
+      --text-secondary: var(--slate-400);
+      --text-tertiary: var(--slate-600);
+      
+      --accent-primary: var(--coral-500);
+      --accent-secondary: var(--mint-500);
+      --accent-hover: var(--coral-400);
+      
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-standard: rgba(255, 255, 255, 0.15);
+      --border-strong: rgba(255, 255, 255, 0.25);
+      
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 9999px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--background);
+      background-image: 
+        radial-gradient(ellipse at top, rgba(255, 107, 107, 0.05) 0%, transparent 50%),
+        radial-gradient(ellipse at bottom right, rgba(0, 217, 163, 0.05) 0%, transparent 40%);
+      color: var(--text-primary);
+      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Chakra Petch', sans-serif;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+    }
+
+    h1 { font-size: 3rem; font-weight: 700; }
+    h2 { font-size: 2rem; }
+    h3 { font-size: 1.5rem; }
+
+    .text-label {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      font-family: 'Chakra Petch', sans-serif;
+      font-weight: 600;
+      font-size: 0.875rem;
+      border-radius: var(--radius-full);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent-primary);
+      color: var(--slate-950);
+      border-color: var(--accent-primary);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-primary);
+      border-color: var(--border-standard);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface);
+      border: 2px solid var(--border-standard);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    }
+
+    .stat-card {
+      background: var(--surface);
+      border: 2px solid var(--border-standard);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--coral-500), var(--mint-500));
+    }
+
+    .stat-card:hover {
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 40px rgba(255, 107, 107, 0.15);
+    }
+
+    .stat-value {
+      font-family: 'Chakra Petch', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-radius: var(--radius-full);
+      border: 2px solid;
+    }
+
+    .tag-primary {
+      background: rgba(255, 107, 107, 0.15);
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    .tag-secondary {
+      background: rgba(0, 217, 163, 0.15);
+      border-color: var(--accent-secondary);
+      color: var(--accent-secondary);
+    }
+
+    .tag-neutral {
+      background: var(--surface-elevated);
+      border-color: var(--border-standard);
+      color: var(--text-secondary);
+    }
+
+    /* Grid */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .grid-3, .grid-2 {
+        grid-template-columns: 1fr;
+      }
+      h1 { font-size: 2rem; }
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .section-title {
+      border-bottom: 2px solid var(--border-subtle);
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Colors Demo */
+    .color-swatch {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-md);
+      border: 2px solid var(--border-standard);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .flex-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .mb-2 { margin-bottom: 0.5rem; }
+    .mb-4 { margin-bottom: 1rem; }
+    .mb-6 { margin-bottom: 1.5rem; }
+    .mt-2 { margin-top: 0.5rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-6 { margin-top: 1.5rem; }
+    .text-coral { color: var(--coral-500); }
+    .text-mint { color: var(--mint-500); }
+    .text-secondary { color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="section">
+      <p class="text-label text-coral">Design System</p>
+      <h1 class="mt-2">The Insider Library</h1>
+      <p class="mt-4 text-secondary">现代编辑风格 + 新粗野主义设计系统展示</p>
+    </div>
+
+    <!-- Typography -->
+    <div class="section">
+      <div class="section-title">
+        <h2>字体 Typography</h2>
+      </div>
+      <div class="card mb-4">
+        <p class="text-label text-secondary mb-2">Display Font</p>
+        <h1 style="margin: 0;">Chakra Petch</h1>
+        <p class="text-secondary mt-2">用于标题、按钮和强调文字。几何感强，有科技未来感。</p>
+      </div>
+      <div class="card">
+        <p class="text-label text-secondary mb-2">Body Font</p>
+        <p style="font-size: 1.25rem; color: var(--text-primary);">Outfit</p>
+        <p class="text-secondary mt-2">用于正文和描述。几何、现代、易读。</p>
+      </div>
+    </div>
+
+    <!-- Colors -->
+    <div class="section">
+      <div class="section-title">
+        <h2>颜色 Colors</h2>
+      </div>
+      <p class="text-label text-secondary mb-4">Core Palette</p>
+      <div class="flex-wrap mb-6">
+        <div class="color-swatch" style="background: var(--slate-950);">950</div>
+        <div class="color-swatch" style="background: var(--slate-900);">900</div>
+        <div class="color-swatch" style="background: var(--slate-800);">800</div>
+        <div class="color-swatch" style="background: var(--slate-700);">700</div>
+        <div class="color-swatch" style="background: var(--slate-600);">600</div>
+        <div class="color-swatch" style="background: var(--slate-400); color: var(--slate-950);">400</div>
+      </div>
+      
+      <p class="text-label text-secondary mb-4">Accent Colors</p>
+      <div class="flex-wrap">
+        <div class="color-swatch" style="background: var(--coral-500); color: var(--slate-950);">Coral</div>
+        <div class="color-swatch" style="background: var(--coral-400); color: var(--slate-950);">400</div>
+        <div class="color-swatch" style="background: var(--mint-500); color: var(--slate-950);">Mint</div>
+        <div class="color-swatch" style="background: var(--mint-400); color: var(--slate-950);">400</div>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="section">
+      <div class="section-title">
+        <h2>按钮 Buttons</h2>
+      </div>
+      <div class="card">
+        <div class="flex-wrap">
+          <button class="btn btn-primary">Primary</button>
+          <button class="btn btn-secondary">Secondary</button>
+          <button class="btn" style="background: transparent; color: var(--text-secondary); border-color: transparent;">Ghost</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tags -->
+    <div class="section">
+      <div class="section-title">
+        <h2>标签 Tags</h2>
+      </div>
+      <div class="card">
+        <div class="flex-wrap">
+          <span class="tag tag-primary">Primary</span>
+          <span class="tag tag-secondary">Secondary</span>
+          <span class="tag tag-neutral">Neutral</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="section">
+      <div class="section-title">
+        <h2>卡片 Cards</h2>
+      </div>
+      <div class="grid-2">
+        <div class="card">
+          <p class="text-label text-secondary">Standard Card</p>
+          <h3 class="mt-2">Card Title</h3>
+          <p class="text-secondary mt-2">这是一个标准卡片，hover 时有边框高亮和上浮效果。</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Stat Card</p>
+          <p class="stat-value text-coral">15+</p>
+          <p class="text-secondary mt-2">顶部有渐变色条，hover 时有发光效果。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="section">
+      <div class="section-title">
+        <h2>统计数据 Stats</h2>
+      </div>
+      <div class="grid-3">
+        <div class="stat-card">
+          <p class="stat-label">SOPs</p>
+          <p class="stat-value text-coral">15+</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Workflows</p>
+          <p class="stat-value text-mint">5</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Source Code</p>
+          <p class="stat-value text-coral">3</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="section" style="border-top: 2px solid var(--border-subtle); padding-top: 2rem; margin-top: 4rem;">
+      <p class="text-secondary">打开 <code style="background: var(--surface); padding: 0.25rem 0.5rem; border-radius: var(--radius-sm);">preview.html</code> 查看完整效果</p>
+      <p class="text-label text-secondary mt-4">The Insider Library Design System © 2024</p>
+    </div>
+  </div>
+</body>
+</html>

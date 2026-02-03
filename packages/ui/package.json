@@ -6,5 +6,15 @@
   "main": "./src/index.ts",
   "dependencies": {
     "@repo/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.1",
+    "tailwindcss-animate": "^1.0.7",
+    "@types/node": "^20",
+    "typescript": "^5"
+  },
+  "peerDependencies": {
+    "react": "^18",
+    "react-dom": "^18"
   }
 }

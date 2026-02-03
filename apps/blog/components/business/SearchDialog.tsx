@@ -88,54 +88,54 @@ export default function SearchDialog({ isOpen, onClose }: SearchDialogProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh] bg-black/50 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh] bg-neutral-950/50 backdrop-blur-sm">
       <div className="mx-auto w-full max-w-2xl px-4">
         <div className="overflow-hidden rounded-2xl bg-white shadow-2xl">
           {/* 搜索输入框 */}
-          <div className="flex items-center gap-3 border-b border-gray-200 p-4">
-            <Search className="h-5 w-5 flex-shrink-0 text-gray-400" />
+          <div className="flex items-center gap-3 border-b border-neutral-200 p-4">
+            <Search className="h-5 w-5 flex-shrink-0 text-neutral-400" />
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="搜索文章、教程或技术栈..."
-              className="flex-1 bg-transparent text-lg outline-none placeholder:text-gray-400"
+              className="flex-1 bg-transparent text-lg outline-none placeholder:text-neutral-400 text-neutral-800"
               autoFocus
             />
             <button
               onClick={onClose}
-              className="flex-shrink-0 rounded-lg p-2 hover:bg-gray-100 transition-colors"
+              className="flex-shrink-0 rounded-lg p-2 hover:bg-neutral-100 transition-colors"
             >
-              <span className="text-xs text-gray-500">ESC</span>
+              <span className="text-xs text-neutral-500">ESC</span>
             </button>
           </div>
 
           {/* 搜索结果 */}
           <div className="max-h-[60vh] overflow-y-auto">
             {isLoading && (
-              <div className="p-8 text-center text-gray-500">
+              <div className="p-8 text-center text-neutral-500">
                 加载搜索数据...
               </div>
             )}
 
             {!isLoading && query.trim() === "" && (
-              <div className="p-8 text-center text-gray-500">
+              <div className="p-8 text-center text-neutral-500">
                 <p className="mb-2">输入关键词开始搜索</p>
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-neutral-400">
                   支持标题、摘要、标签的模糊搜索
                 </p>
               </div>
             )}
 
             {!isLoading && query.trim() !== "" && results.length === 0 && (
-              <div className="p-8 text-center text-gray-500">
+              <div className="p-8 text-center text-neutral-500">
                 没有找到相关文章
               </div>
             )}
 
             {!isLoading && results.length > 0 && (
               <div className="p-2">
-                <p className="px-3 py-2 text-xs font-semibold text-gray-500">
+                <p className="px-3 py-2 text-xs font-semibold text-neutral-500">
                   找到 {results.length} 篇文章
                 </p>
                 {results.map((post) => (
@@ -143,15 +143,15 @@ export default function SearchDialog({ isOpen, onClose }: SearchDialogProps) {
                     key={post.slug}
                     href={`/blog/${post.slug}`}
                     onClick={onClose}
-                    className="flex gap-4 rounded-lg px-3 py-3 hover:bg-gray-50 transition-colors"
+                    className="flex gap-4 rounded-lg px-3 py-3 hover:bg-neutral-50 transition-colors"
                   >
-                    <FileText className="h-5 w-5 flex-shrink-0 text-gray-400 mt-1" />
+                    <FileText className="h-5 w-5 flex-shrink-0 text-primary-400 mt-1" />
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-900 line-clamp-1">
+                      <h3 className="font-semibold text-neutral-800 line-clamp-1">
                         {post.title}
                       </h3>
                       {post.excerpt && (
-                        <p className="mt-1 text-sm text-gray-600 line-clamp-2">
+                        <p className="mt-1 text-sm text-neutral-600 line-clamp-2">
                           {post.excerpt}
                         </p>
                       )}
@@ -160,7 +160,7 @@ export default function SearchDialog({ isOpen, onClose }: SearchDialogProps) {
                           {post.tags.slice(0, 3).map((tag) => (
                             <span
                               key={tag}
-                              className="text-xs rounded-full bg-blue-50 px-2 py-0.5 text-blue-700"
+                              className="text-xs rounded-full bg-primary-50 px-2 py-0.5 text-primary-700"
                             >
                               {tag}
                             </span>
@@ -175,24 +175,24 @@ export default function SearchDialog({ isOpen, onClose }: SearchDialogProps) {
           </div>
 
           {/* 底部提示 */}
-          <div className="border-t border-gray-200 bg-gray-50 px-4 py-2">
-            <div className="flex items-center justify-between text-xs text-gray-500">
+          <div className="border-t border-neutral-200 bg-neutral-50 px-4 py-2">
+            <div className="flex items-center justify-between text-xs text-neutral-500">
               <span>支持模糊搜索，容错匹配</span>
               <div className="flex items-center gap-3">
                 <span className="flex items-center gap-1">
-                  <kbd className="rounded border border-gray-300 px-1.5 py-0.5 font-mono">
+                  <kbd className="rounded border border-neutral-300 px-1.5 py-0.5 font-mono">
                     ↑↓
                   </kbd>
                   导航
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="rounded border border-gray-300 px-1.5 py-0.5 font-mono">
+                  <kbd className="rounded border border-neutral-300 px-1.5 py-0.5 font-mono">
                     Enter
                   </kbd>
                   打开
                 </span>
                 <span className="flex items-center gap-1">
-                  <kbd className="rounded border border-gray-300 px-1.5 py-0.5 font-mono">
+                  <kbd className="rounded border border-neutral-300 px-1.5 py-0.5 font-mono">
                     ESC
                   </kbd>
                   关闭

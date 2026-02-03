@@ -84,26 +84,26 @@ export default function PortfolioHome() {
     <main className="min-h-screen px-6 pb-20 pt-10 sm:px-12">
       <header className="flex items-start justify-between gap-6 text-sm">
         <div className="space-y-2">
-          <h1 className="text-4xl font-semibold tracking-tight text-black sm:text-5xl">
+          <h1 className="text-4xl font-semibold tracking-tight text-neutral-800 sm:text-5xl">
             {copy.name}
           </h1>
-          <p className="text-base text-black/70">{copy.tagline}</p>
+          <p className="text-base text-muted-foreground">{copy.tagline}</p>
         </div>
         <div className="flex flex-col items-end gap-4 sm:flex-row sm:items-center">
-          <nav className="flex items-center gap-6 text-sm text-black/60">
-            <a className="hover:text-black" href="#about">
+          <nav className="flex items-center gap-6 text-sm text-muted-foreground">
+            <a className="nav-link" href="#about">
               {copy.nav.about}
             </a>
-            <a className="hover:text-black" href="#projects">
+            <a className="nav-link" href="#projects">
               {copy.nav.projects}
             </a>
-            <a className="hover:text-black" href="/resume.pdf">
+            <a className="nav-link" href="/resume.pdf">
               {copy.nav.resume}
             </a>
           </nav>
           <button
             type="button"
-            className="rounded-full border border-black/20 px-4 py-2 text-xs font-semibold text-black/70 hover:border-black"
+            className="rounded-full border border-border px-4 py-2 text-xs font-semibold text-muted-foreground hover:border-primary hover:text-primary transition-colors"
             onClick={() => setLanguage(language === "en" ? "zh" : "en")}
           >
             {language === "en" ? "中文" : "English"}
@@ -113,21 +113,21 @@ export default function PortfolioHome() {
       </header>
 
       <section id="projects" className="mt-16">
-        <div className="flex items-end justify-between border-b border-black/10 pb-4">
-          <h2 className="text-xl font-semibold text-black">{copy.selectedWork}</h2>
-          <span className="text-xs uppercase tracking-[0.3em] text-black/50">
+        <div className="flex items-end justify-between border-b border-border pb-4">
+          <h2 className="text-xl font-semibold text-neutral-800">{copy.selectedWork}</h2>
+          <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground">
             {copy.caseCount}
           </span>
         </div>
-        <div className="divide-y divide-black/10">
+        <div className="divide-y divide-border">
           {copy.projects.map((project) => (
             <div key={project.title} className="py-6">
               <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <h3 className="text-lg font-semibold text-black">{project.title}</h3>
-                  <p className="text-sm text-black/60">{project.problem}</p>
+                  <h3 className="text-lg font-semibold text-neutral-800">{project.title}</h3>
+                  <p className="text-sm text-muted-foreground">{project.problem}</p>
                 </div>
-                <span className="inline-flex items-center rounded-full border border-black/20 px-4 py-1 text-xs font-semibold text-black/70">
+                <span className="tag-primary">
                   {project.result}
                 </span>
               </div>
@@ -137,25 +137,25 @@ export default function PortfolioHome() {
       </section>
 
       <section id="about" className="mt-16">
-        <h2 className="text-xl font-semibold text-black">{copy.thinking}</h2>
-        <ul className="mt-6 space-y-3 text-sm text-black/70">
+        <h2 className="text-xl font-semibold text-neutral-800">{copy.thinking}</h2>
+        <ul className="mt-6 space-y-3 text-sm text-muted-foreground">
           {copy.writings.map((title) => (
-            <li key={title} className="border-b border-black/10 pb-3">
+            <li key={title} className="border-b border-border pb-3 hover:text-neutral-800 transition-colors cursor-pointer">
               {title}
             </li>
           ))}
         </ul>
       </section>
 
-      <footer className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-black/10 pt-6 text-sm text-black/60 sm:flex-row sm:items-center">
+      <footer className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-border pt-6 text-sm text-muted-foreground sm:flex-row sm:items-center">
         <div className="flex items-center gap-4">
-          <a className="hover:text-black" href={`mailto:${copy.email}`}>
+          <a className="nav-link" href={`mailto:${copy.email}`}>
             {copy.email}
           </a>
-          <a className="hover:text-black" href="https://linkedin.com">
+          <a className="nav-link" href="https://linkedin.com">
             LinkedIn
           </a>
-          <a className="hover:text-black" href="https://github.com">
+          <a className="nav-link" href="https://github.com">
             GitHub
           </a>
         </div>

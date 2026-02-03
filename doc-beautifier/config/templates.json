@@ -1,0 +1,35 @@
+{
+  "name": "template-registry",
+  "templates": {
+    "magazine": {
+      "name": "杂志风格",
+      "description": "适合长文、深度报道，视觉丰富",
+      "path": "./presets/magazine",
+      "features": ["hero-image", "toc", "rich-media", "pull-quotes"]
+    },
+    "minimal": {
+      "name": "极简风格",
+      "description": "适合技术文档、教程，专注内容",
+      "path": "./presets/minimal",
+      "features": ["clean-layout", "code-highlight", "simple-nav"]
+    },
+    "tech": {
+      "name": "科技风格",
+      "description": "适合产品发布、技术博客，现代感强",
+      "path": "./presets/tech",
+      "features": ["gradient-bg", "glassmorphism", "dark-mode"]
+    },
+    "literary": {
+      "name": "文艺风格",
+      "description": "适合散文、随笔，优雅诗意",
+      "path": "./presets/literary",
+      "features": ["elegant-typography", "sepia-mode", "ornaments"]
+    },
+    "corporate": {
+      "name": "企业风格",
+      "description": "适合报告、白皮书，专业正式",
+      "path": "./presets/corporate",
+      "features": ["branding", "data-viz", "print-friendly"]
+    }
+  }
+}

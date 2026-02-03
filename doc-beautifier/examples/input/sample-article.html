@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>人工智能的下一个十年：从工具到伙伴的进化</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --text: #ffffff;
+      --text-muted: #888888;
+      --primary: #d4af37;
+      --accent: #ff3366;
+      --border: #2a2a2a;
+      --transition: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      font-size: 17px;
+    }
+    
+    /* 进度条 */
+    .progress-bar {
+      position: fixed; top: 0; left: 0; right: 0; height: 3px;
+      z-index: 9999; background: var(--border);
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      width: 0%; transition: width 0.1s;
+    }
+    
+    /* 左侧目录 */
+    .toc-sidebar {
+      position: fixed; top: 0; left: 0; width: 280px; height: 100vh;
+      background: var(--surface); border-right: 1px solid var(--border);
+      z-index: 2000; display: flex; flex-direction: column;
+      padding: 2rem 1.5rem;
+    }
+    .toc-sidebar-header {
+      margin-bottom: 2rem; padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .toc-label {
+      font-size: 0.75rem; text-transform: uppercase;
+      letter-spacing: 0.2em; color: var(--text-muted);
+      display: block; margin-bottom: 1rem;
+    }
+    .toc-progress { height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
+    .toc-progress-bar { height: 100%; background: var(--primary); width: 0%; transition: width 0.3s; }
+    .toc-sidebar-list { list-style: none; flex: 1; overflow-y: auto; padding-right: 0.5rem; }
+    .toc-sidebar-list::-webkit-scrollbar { width: 4px; }
+    .toc-sidebar-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+    .toc-sidebar-item { margin-bottom: 0.5rem; }
+    .toc-sidebar-item.active .toc-sidebar-link {
+      background: rgba(212, 175, 55, 0.1);
+      border-left-color: var(--primary);
+    }
+    .toc-sidebar-item.active .toc-num { color: var(--primary); }
+    .toc-sidebar-link {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      padding: 0.75rem 1rem; border-radius: 8px;
+      border-left: 3px solid transparent;
+      color: var(--text); text-decoration: none; transition: all 0.3s;
+    }
+    .toc-sidebar-link:hover { background: rgba(255,255,255,0.05); border-left-color: var(--text-muted); }
+    .toc-num { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); min-width: 24px; }
+    .toc-text { font-size: 0.875rem; line-height: 1.5; }
+    .toc-sidebar-footer { padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: center; }
+    .toc-count { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.1em; }
+    
+    /* 顶部栏 */
+    .top-brand-bar {
+      position: fixed; top: 0; left: 280px; right: 0; z-index: 1000;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(10,10,10,0.8); backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .brand-logo { display: flex; align-items: center; gap: 0.75rem; }
+    .logo-icon { color: var(--primary); font-size: 1.5rem; }
+    .logo-text { font-weight: 700; font-size: 1rem; letter-spacing: 0.15em; }
+    .brand-actions { display: flex; gap: 0.5rem; }
+    .action-btn {
+      width: 40px; height: 40px; border-radius: 8px;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--text); display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.3s;
+    }
+    .action-btn:hover { background: var(--primary); border-color: var(--primary); }
+    
+    /* 首屏 */
+    .hero {
+      min-height: 85vh; display: flex; align-items: center; justify-content: center;
+      position: relative; padding: 6rem 4rem 6rem calc(280px + 4rem);
+      overflow: hidden;
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1a0a1a 0%, #0d1a2d 50%, #0a0a0a 100%);
+    }
+    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 800px; }
+    .hero-label { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 2rem; }
+    .label-line { width: 60px; height: 1px; background: var(--primary); }
+    .label-text { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--primary); }
+    .hero-title { font-family: 'Noto Serif SC', serif; font-size: clamp(3rem, 6vw, 5rem); font-weight: 700; line-height: 1.1; margin-bottom: 2rem; }
+    .title-main { background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-meta { display: flex; align-items: center; justify-content: center; gap: 1rem; font-size: 0.875rem; color: var(--text-muted); margin-bottom: 2rem; }
+    .hero-excerpt { font-size: 1.25rem; line-height: 1.8; color: var(--text-muted); max-width: 600px; margin: 0 auto 3rem; }
+    
+    /* 内容区 */
+    .content { padding: 4rem 0; margin-left: 280px; }
+    .content-wrapper { max-width: 720px; margin: 0 auto; padding: 0 3rem; }
+    .section { margin-bottom: 5rem; opacity: 0; transform: translateY(40px); transition: all 0.8s var(--transition); }
+    .section.visible { opacity: 1; transform: translateY(0); }
+    .section-header { margin-bottom: 2rem; display: flex; align-items: baseline; gap: 1rem; }
+    .section-number { font-size: 0.875rem; font-weight: 700; color: var(--primary); font-family: 'Inter', sans-serif; }
+    .section-title { font-family: 'Noto Serif SC', serif; font-size: 1.75rem; font-weight: 600; }
+    .section-line { flex: 1; height: 1px; background: var(--border); margin-left: 1rem; }
+    .section-body { font-family: 'Noto Serif SC', serif; font-size: 1.125rem; line-height: 2; }
+    .section-body p { margin-bottom: 1.5rem; text-align: justify; }
+    .section-body p:first-of-type::first-letter {
+      float: left; font-size: 4rem; line-height: 1; padding-right: 1rem;
+      font-weight: 700; color: var(--primary); font-family: 'Noto Serif SC', serif;
+    }
+    .section-body h3 { font-size: 1.25rem; font-weight: 600; margin: 1.5rem 0 0.75rem; }
+    .section-body ul { margin: 1rem 0 1rem 2rem; }
+    .section-body li { margin-bottom: 0.5rem; }
+    .selectable-text::selection { background: var(--primary); color: white; }
+    
+    /* 评论面板 */
+    .comment-panel {
+      position: fixed; top: 0; right: -450px; width: 450px; height: 100vh;
+      background: var(--surface); z-index: 3000; display: flex; flex-direction: column;
+      transition: right 0.5s var(--transition); box-shadow: -10px 0 50px rgba(0,0,0,0.3);
+    }
+    .comment-panel.open { right: 0; }
+    .panel-header { display: flex; justify-content: space-between; align-items: center; padding: 2rem; border-bottom: 1px solid var(--border); }
+    .panel-header h3 { font-size: 1.25rem; font-weight: 600; }
+    .panel-close { width: 36px; height: 36px; border-radius: 50%; border: none; background: var(--border); color: var(--text); font-size: 1.25rem; cursor: pointer; }
+    .panel-close:hover { background: var(--accent); }
+    .panel-content { flex: 1; overflow-y: auto; padding: 2rem; }
+    .comment-placeholder { text-align: center; color: var(--text-muted); padding: 3rem 1rem; font-style: italic; }
+    .comment-item { background: var(--bg); border-radius: 12px; padding: 1.5rem; margin-bottom: 1rem; border-left: 3px solid var(--primary); }
+    .comment-quote { font-size: 0.875rem; color: var(--text-muted); font-style: italic; margin-bottom: 0.75rem; padding: 0.75rem; background: var(--surface); border-radius: 6px; border-left: 2px solid var(--accent); }
+    .comment-text { font-size: 0.9375rem; line-height: 1.6; margin-bottom: 0.75rem; }
+    .comment-meta { font-size: 0.75rem; color: var(--text-muted); }
+    .panel-input { padding: 1.5rem; border-top: 1px solid var(--border); background: var(--bg); }
+    .selected-text-preview { font-size: 0.875rem; color: var(--text-muted); font-style: italic; margin-bottom: 1rem; padding: 0.75rem; background: var(--surface); border-radius: 6px; border-left: 2px solid var(--primary); max-height: 80px; overflow: hidden; }
+    .panel-input textarea { width: 100%; min-height: 100px; padding: 1rem; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); font-family: inherit; font-size: 0.9375rem; resize: vertical; margin-bottom: 1rem; }
+    .panel-input textarea:focus { outline: none; border-color: var(--primary); }
+    .input-actions { display: flex; gap: 1rem; justify-content: flex-end; }
+    .input-actions button { padding: 0.75rem 1.5rem; border-radius: 6px; font-size: 0.875rem; font-weight: 500; cursor: pointer; }
+    .btn-cancel { border: 1px solid var(--border); background: transparent; color: var(--text); }
+    .btn-submit { border: none; background: var(--primary); color: white; }
+    .btn-submit:hover { background: var(--accent); }
+    
+    /* 浮动评论按钮 */
+    .floating-comment-btn {
+      position: fixed; bottom: 2rem; right: 2rem; width: 60px; height: 60px;
+      border-radius: 50%; border: none; background: var(--primary); color: white;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 4px 20px rgba(212,175,55,0.4);
+      transition: all 0.3s; z-index: 1500;
+    }
+    .floating-comment-btn:hover { transform: scale(1.1); }
+    .btn-badge { position: absolute; top: -5px; right: -5px; width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: white; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+    
+    /* 响应式 */
+    @media (max-width: 1024px) {
+      .toc-sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+      .toc-sidebar.open { transform: translateX(0); }
+      .hero { padding-left: 1.5rem; }
+      .content, .article-footer { margin-left: 0; }
+      .top-brand-bar { left: 0; }
+    }
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2rem; }
+      .comment-panel { width: 100%; right: -100%; }
+      .content-wrapper { padding: 0 1.5rem; }
+    }
+  
+  </style>
+</head>
+<body>
+  <!-- 进度条 -->
+  <div class="progress-bar">
+    <div class="progress-fill"></div>
+  </div>
+
+  <!-- 左侧固定目录 -->
+  <aside class="toc-sidebar" id="tocSidebar">
+    <div class="toc-sidebar-header">
+      <span class="toc-label">目录</span>
+      <div class="toc-progress">
+        <div class="toc-progress-bar" id="tocProgressBar"></div>
+      </div>
+    </div>
+    <ul class="toc-sidebar-list">
+      
+        <li class="toc-sidebar-item" data-section="section-0">
+          <a href="#section-0" class="toc-sidebar-link">
+            <span class="toc-num">01</span>
+            <span class="toc-text">引言：变革的前夜</span>
+          </a>
+        </li>
+      
+        <li class="toc-sidebar-item" data-section="section-1">
+          <a href="#section-1" class="toc-sidebar-link">
+            <span class="toc-num">02</span>
+            <span class="toc-text">第一章：当前的技术边界</span>
+          </a>
+        </li>
+      
+        <li class="toc-sidebar-item" data-section="section-2">
+          <a href="#section-2" class="toc-sidebar-link">
+            <span class="toc-num">03</span>
+            <span class="toc-text">第二章：应用场景的爆发</span>
+          </a>
+        </li>
+      
+        <li class="toc-sidebar-item" data-section="section-3">
+          <a href="#section-3" class="toc-sidebar-link">
+            <span class="toc-num">04</span>
+            <span class="toc-text">第三章：挑战与伦理</span>
+          </a>
+        </li>
+      
+        <li class="toc-sidebar-item" data-section="section-4">
+          <a href="#section-4" class="toc-sidebar-link">
+            <span class="toc-num">05</span>
+            <span class="toc-text">第四章：未来的图景</span>
+          </a>
+        </li>
+      
+        <li class="toc-sidebar-item" data-section="section-5">
+          <a href="#section-5" class="toc-sidebar-link">
+            <span class="toc-num">06</span>
+            <span class="toc-text">结语：拥抱变革的时代</span>
+          </a>
+        </li>
+      
+    </ul>
+    <div class="toc-sidebar-footer">
+      <span class="toc-count">共 6 章</span>
+    </div>
+  </aside>
+
+  <!-- 顶部品牌栏 -->
+  <nav class="top-brand-bar">
+    <div class="brand-logo">
+      <span class="logo-icon">◆</span>
+      <span class="logo-text">VOGUE STYLE</span>
+    </div>
+    <div class="brand-actions">
+      <button class="action-btn" onclick="scrollToTop()" title="回到顶部">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 19V5"/><polyline points="5 12 12 5 19 12"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 首屏 -->
+  <header class="hero">
+    <div class="hero-bg">
+      <div class="hero-gradient"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-label">
+        <span class="label-line"></span>
+        <span class="label-text">独家专题</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="title-main">人工智能的下一个十年：从工具到伙伴的进化</span>
+      </h1>
+      <div class="hero-meta">
+        <span class="meta-read">5 分钟阅读</span>
+      </div>
+      <p class="hero-excerpt">*本文探讨了人工智能发展的现状、应用、挑战与未来展望。技术的本质是工具，而工具的意义取决于使用它的人。*
+...</p>
+    </div>
+  </header>
+
+  <!-- 主内容 -->
+  <main class="content">
+    <div class="content-wrapper">
+      
+      <section id="section-0" class="section" data-section="0">
+        <div class="section-header">
+          <span class="section-number">01</span>
+          <h2 class="section-title">引言：变革的前夜</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="section-body selectable-text" data-section-id="section-0">
+          <p>我们正在见证一场前所未有的技术革命。人工智能不再是科幻小说中的概念，而是已经渗透到生活的方方面面。从智能手机的语音助手到自动驾驶汽车，从医疗诊断到金融分析，AI正在重塑人类社会的运行方式。</p>
+<p>这场变革的本质，不仅仅是技术的进步，更是人机关系的重新定义。</p>
+        </div>
+      </section>
+    
+
+      <section id="section-1" class="section" data-section="1">
+        <div class="section-header">
+          <span class="section-number">02</span>
+          <h2 class="section-title">第一章：当前的技术边界</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="section-body selectable-text" data-section-id="section-1">
+          <h3>大语言模型的突破</h3>
+<p>2023年被称为"大模型元年"。GPT、Claude、Gemini等一系列大语言模型展现出惊人的能力：</p>
+<ul><li>**语言理解**：能够理解复杂的上下文和隐喻</li>
+<li>**知识整合**：掌握跨学科的海量知识</li>
+<li>**推理能力**：进行逻辑推理和问题解决</li>
+<li>**创造性**：生成文本、代码、创意内容</li>
+</ul><p>这些能力使得AI首次展现出"通用智能"的雏形。</p>
+<h3>多模态的融合</h3>
+<p>最新的AI系统不再局限于文本。它们能够：</p>
+<ul><li>理解并生成图像</li>
+<li>分析视频内容</li>
+<li>处理音频信息</li>
+<li>整合多种感官输入</li>
+</ul><p>这种多模态能力让AI更接近人类的感知方式。</p>
+        </div>
+      </section>
+    
+
+      <section id="section-2" class="section" data-section="2">
+        <div class="section-header">
+          <span class="section-number">03</span>
+          <h2 class="section-title">第二章：应用场景的爆发</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="section-body selectable-text" data-section-id="section-2">
+          <h3>知识工作者的变革</h3>
+<p>AI正在改变白领工作的本质：</p>
+<p>**内容创作领域**</p>
+<ul><li>写作助手提高创作效率</li>
+<li>自动翻译打破语言障碍</li>
+<li>内容审核确保信息质量</li>
+</ul><p>**专业咨询领域**</p>
+<ul><li>法律AI辅助案件分析</li>
+<li>医疗AI提供诊断建议</li>
+<li>金融AI进行风险评估</li>
+</ul><h3>实体经济的重塑</h3>
+<p>制造业、农业、物流等传统行业也在经历AI驱动的转型：</p>
+<ul><li>智能工厂实现柔性生产</li>
+<li>精准农业提高作物产量</li>
+<li>物流优化降低运输成本</li></ul>
+        </div>
+      </section>
+    
+
+      <section id="section-3" class="section" data-section="3">
+        <div class="section-header">
+          <span class="section-number">04</span>
+          <h2 class="section-title">第三章：挑战与伦理</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="section-body selectable-text" data-section-id="section-3">
+          <h3>就业市场的震荡</h3>
+<p>AI带来的效率提升必然伴随就业结构的调整：</p>
+<p>1. **消失的岗位**：重复性、规则明确的工作</p>
+<p>2. **转变的岗位**：需要与AI协作的新工作模式</p>
+<p>3. **新生的岗位**：AI训练师、提示工程师等</p>
+<p>关键在于社会如何管理这个过渡期。</p>
+<h3>算法偏见与公平性</h3>
+<p>AI系统的决策并非完全客观：</p>
+<ul><li>训练数据的偏见会被放大</li>
+<li>算法可能歧视特定群体</li>
+<li>决策过程缺乏透明度</li>
+</ul><p>解决这些问题需要技术、法律、伦理的多方协作。</p>
+        </div>
+      </section>
+    
+
+      <section id="section-4" class="section" data-section="4">
+        <div class="section-header">
+          <span class="section-number">05</span>
+          <h2 class="section-title">第四章：未来的图景</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="section-body selectable-text" data-section-id="section-4">
+          <h3>人机协作的新范式</h3>
+<p>未来的AI不是替代人类，而是增强人类：</p>
+<p>**智能伙伴模式**</p>
+<ul><li>AI负责信息处理和重复任务</li>
+<li>人类专注于创造性、情感性工作</li>
+<li>协同创造更大价值</li>
+</ul><p>**个性化智能助手**</p>
+<ul><li>深度了解用户偏好和习惯</li>
+<li>主动提供建议和帮助</li>
+<li>成为真正的"数字伙伴"</li>
+</ul><h3>通用人工智能的曙光</h3>
+<p>虽然AGI（通用人工智能）尚未实现，但路径已逐渐清晰：</p>
+<ul><li>规模定律持续有效</li>
+<li>新架构不断涌现</li>
+<li>多模态融合加速</li>
+</ul><p>未来十年，我们可能会看到接近人类水平的AI系统。</p>
+        </div>
+      </section>
+    
+
+      <section id="section-5" class="section" data-section="5">
+        <div class="section-header">
+          <span class="section-number">06</span>
+          <h2 class="section-title">结语：拥抱变革的时代</h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="section-body selectable-text" data-section-id="section-5">
+          <p>人工智能的进化不会停止。与其恐惧，不如积极拥抱这场变革：</p>
+<p>1. **持续学习**：保持对新技术的敏感度</p>
+<p>2. **培养独特能力**：发展AI难以替代的技能</p>
+<p>3. **参与讨论**：在技术发展中发出人的声音</p>
+<p>未来属于能够与AI和谐共处的人类。让我们共同塑造一个人机协作的美好未来。</p>
+<p>---</p>
+<p>*本文探讨了人工智能发展的现状、应用、挑战与未来展望。技术的本质是工具，而工具的意义取决于使用它的人。*</p>
+        </div>
+      </section>
+    
+    </div>
+  </main>
+
+  <!-- 评论按钮 -->
+  <button class="floating-comment-btn" id="commentBtn" onclick="openCommentPanel()">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <span class="btn-badge" id="commentBadge">0</span>
+  </button>
+
+  <!-- 评论面板 -->
+  <aside class="comment-panel" id="commentPanel">
+    <div class="panel-header">
+      <h3>💬 读者评论</h3>
+      <button class="panel-close" onclick="closeCommentPanel()">×</button>
+    </div>
+    <div class="panel-content" id="panelContent">
+      <div class="comment-placeholder">选中文本添加评论</div>
+    </div>
+    <div class="panel-input" id="panelInput" style="display:none;">
+      <div class="selected-text-preview"></div>
+      <textarea placeholder="写下你的想法..." id="commentInput"></textarea>
+      <div class="input-actions">
+        <button class="btn-cancel" onclick="cancelComment()">取消</button>
+        <button class="btn-submit" onclick="submitComment()">发布</button>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    
+    let comments = JSON.parse(localStorage.getItem('article-comments') || '[]');
+    let currentSelection = null;
+    let selectedRange = null;
+
+    function updateCommentCount() {
+      const badge = document.getElementById('commentBadge');
+      if (badge) {
+        badge.textContent = comments.length;
+        badge.style.display = comments.length > 0 ? 'flex' : 'none';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCommentCount();
+      initScrollAnimations();
+      initProgressBar();
+      initTocHighlight();
+      initTocProgress();
+      initTextSelection();
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openCommentPanel() {
+      document.getElementById('commentPanel').classList.add('open');
+    }
+
+    function closeCommentPanel() {
+      document.getElementById('commentPanel').classList.remove('open');
+      clearSelection();
+    }
+
+    function initScrollAnimations() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.section').forEach(s => observer.observe(s));
+    }
+
+    function initProgressBar() {
+      const bar = document.querySelector('.progress-fill');
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = (scrolled / height * 100) + '%';
+      });
+    }
+
+    function initTocHighlight() {
+      const sections = document.querySelectorAll('.section');
+      const items = document.querySelectorAll('.toc-sidebar-item');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            items.forEach(item => {
+              item.classList.toggle('active', item.dataset.section === id);
+            });
+          }
+        });
+      }, { threshold: 0.5 });
+      sections.forEach(s => observer.observe(s));
+    }
+
+    function initTocProgress() {
+      const bar = document.getElementById('tocProgressBar');
+      const sections = document.querySelectorAll('.section');
+      window.addEventListener('scroll', () => {
+        let current = 0;
+        sections.forEach((s, i) => {
+          if (s.getBoundingClientRect().top <= window.innerHeight / 2) current = i + 1;
+        });
+        bar.style.width = (current / sections.length * 100) + '%';
+      });
+    }
+
+    function initTextSelection() {
+      document.addEventListener('mouseup', () => {
+        const sel = window.getSelection();
+        const text = sel.toString().trim();
+        if (text.length > 5) {
+          currentSelection = text;
+          selectedRange = sel.getRangeAt(0);
+          document.querySelector('.selected-text-preview').textContent = '「' + text.substring(0, 100) + '」';
+          document.getElementById('panelInput').style.display = 'block';
+          openCommentPanel();
+        }
+      });
+    }
+
+    function clearSelection() {
+      window.getSelection().removeAllRanges();
+      currentSelection = null;
+      selectedRange = null;
+      document.getElementById('panelInput').style.display = 'none';
+      document.getElementById('commentInput').value = '';
+    }
+
+    function cancelComment() {
+      clearSelection();
+      closeCommentPanel();
+    }
+
+    function submitComment() {
+      const text = document.getElementById('commentInput').value.trim();
+      if (!text || !currentSelection) return;
+      
+      const comment = {
+        id: Date.now(),
+        quote: currentSelection,
+        text: text,
+        timestamp: new Date().toLocaleString('zh-CN')
+      };
+      
+      comments.push(comment);
+      localStorage.setItem('article-comments', JSON.stringify(comments));
+      renderComment(comment);
+      updateCommentCount();
+      clearSelection();
+      closeCommentPanel();
+    }
+
+    function renderComment(comment) {
+      const content = document.getElementById('panelContent');
+      const placeholder = content.querySelector('.comment-placeholder');
+      if (placeholder) placeholder.remove();
+      
+      const item = document.createElement('div');
+      item.className = 'comment-item';
+      item.innerHTML = '<div class="comment-quote">' + comment.quote.substring(0, 80) + '</div><div class="comment-text">' + comment.text + '</div><div class="comment-meta">' + comment.timestamp + '</div>';
+      content.insertBefore(item, content.firstChild);
+    }
+
+    if (comments.length > 0) {
+      comments.forEach(c => renderComment(c));
+    }
+
+    document.querySelectorAll('.toc-sidebar-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  
+  </script>
+</body>
+</html>

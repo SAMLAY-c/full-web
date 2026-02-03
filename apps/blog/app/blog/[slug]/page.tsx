@@ -3,6 +3,7 @@ import { postService } from "../../../lib/service/posts";
 import { urlFor } from "../../../lib/sanity.image";
 import PostBody from "../../../components/post-body";
 import { getTemplate } from "../../../lib/markdown-templates/registry";
+import HtmlPostFrame from "../../../components/html-post-frame";
 
 // ✅ 缓存策略：ISR 增量静态再生成
 // 每 1800 秒（30 分钟）检查一次文章更新
@@ -35,6 +36,14 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   const coverUrl = isSanity && post.coverImage
     ? urlFor(post.coverImage)?.width(1200).height(675).url()
     : null;
+
+  if (isSanity && post.htmlContent) {
+    return (
+      <div className="mx-auto w-full px-0 py-0">
+        <HtmlPostFrame html={post.htmlContent} />
+      </div>
+    );
+  }
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-12">
