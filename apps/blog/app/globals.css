@@ -73,6 +73,11 @@
     @apply border-border;
   }
 
+  html {
+    background: rgb(var(--background));
+    overscroll-behavior: none;
+  }
+
   body {
     @apply bg-background text-foreground;
     background-image: 
