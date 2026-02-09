@@ -36,10 +36,10 @@ export default async function AdminPage() {
       color: "bg-white border border-neutral-200",
     },
     {
-      title: "返回首页",
-      description: "查看博客首页",
-      icon: "🏠",
-      href: "/",
+      title: "版本历史",
+      description: "查看文章修改历史",
+      icon: "🕐",
+      href: "/admin/history",
       color: "bg-white border border-neutral-200",
     },
   ];

@@ -117,8 +117,8 @@ export default function HomeContent({
         {/* Hero Section - 个人化改版 */}
         <PersonalHero latestNotes={latestNotes} />
 
-        {/* Roadmap Section - 强化路线图 */}
-        <section className="py-20 bg-neutral-50">
+        {/* Roadmap Section */}
+        <section className="py-24 bg-neutral-50">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             <div className="grid lg:grid-cols-[1fr_1.5fr] gap-12 items-start">
               {/* Left: Description */}
@@ -154,7 +154,7 @@ export default function HomeContent({
         </section>
 
         {/* Articles Section - 文章列表 */}
-        <section className="py-20">
+        <section className="py-24">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
             {/* Section Header */}
             <div className="flex items-end justify-between mb-8">
@@ -264,16 +264,17 @@ export default function HomeContent({
           </div>
         </section>
 
-        {/* Newsletter Section - 简洁版 */}
-        <section className="py-20 bg-neutral-50">
-          <div className="max-w-[800px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl font-bold text-neutral-900 mb-3">
-              订阅更新
-            </h2>
-            <p className="text-neutral-500 mb-6">
-              每周一封邮件，分享最新的学习笔记和工具发现。没有垃圾邮件，随时退订。
-            </p>
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        {/* Newsletter Section - 宽度与上方一致 */}
+        <section className="py-24 bg-neutral-50">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
+            <div className="max-w-2xl mx-auto text-center">
+              <h2 className="text-2xl font-bold text-neutral-900 mb-3">
+                订阅更新
+              </h2>
+              <p className="text-neutral-500 mb-6">
+                每周一封邮件，分享最新的学习笔记和工具发现。没有垃圾邮件，随时退订。
+              </p>
+              <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
               <input
                 type="email"
                 placeholder="your@email.com"
@@ -286,6 +287,7 @@ export default function HomeContent({
                 订阅
               </button>
             </form>
+            </div>
           </div>
         </section>
       </main>

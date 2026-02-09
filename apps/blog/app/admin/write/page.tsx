@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, Suspense } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -23,7 +23,27 @@ const ALL_TAGS = [
   "React", "Next.js", "产品方法论", "转型"
 ];
 
-export default function WritePage() {
+// 主页面组件包装在 Suspense 中
+export default function WritePageWrapper() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <WritePage />
+    </Suspense>
+  );
+}
+
+function LoadingState() {
+  return (
+    <div className="min-h-screen bg-neutral-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-neutral-900 mx-auto"></div>
+        <p className="mt-4 text-neutral-500">加载中...</p>
+      </div>
+    </div>
+  );
+}
+
+function WritePage() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();

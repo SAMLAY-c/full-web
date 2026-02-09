@@ -4,6 +4,7 @@ import { writeFile, mkdir } from "fs/promises";
 import { existsSync } from "fs";
 import path from "path";
 import { sanityWriteClient } from "@/lib/sanity/client";
+import { saveVersion } from "@/lib/versioning/history";
 
 // 检查用户是否有管理员权限
 async function checkAdminAuth() {
@@ -63,9 +64,8 @@ async function saveToSanity(data: {
     throw new Error("Sanity write client not configured");
   }
 
-  const doc = {
+  const doc: any = {
     _type: "post",
-    _id: data._id || undefined,
     title: data.title,
     slug: { current: data.slug },
     excerpt: data.excerpt,
@@ -84,6 +84,11 @@ async function saveToSanity(data: {
     publishedAt: data.publishedAt,
     status: data.status,
   };
+
+  // 如果有 _id 则添加，否则让 Sanity 自动生成
+  if (data._id) {
+    doc._id = data._id;
+  }
 
   const result = await sanityWriteClient.createOrReplace(doc);
   return { id: result._id, type: "sanity" };
@@ -141,6 +146,23 @@ export async function POST(request: NextRequest) {
       } catch (error) {
         console.error("Failed to save to Sanity:", error);
       }
+    }
+
+    // 3. 保存历史版本（永久本地备份）
+    try {
+      await saveVersion({
+        slug: cleanSlug,
+        title: data.title,
+        excerpt: data.excerpt || "",
+        content: data.content || "",
+        tags: data.tags || [],
+        status: data.status || "draft",
+        author: data.author || "admin",
+        changeSummary: data.changeSummary || `保存于 ${new Date().toLocaleString("zh-CN")}`,
+      });
+    } catch (error) {
+      console.error("Failed to save version history:", error);
+      // 历史版本保存失败不影响主流程
     }
 
     return NextResponse.json({

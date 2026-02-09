@@ -74,11 +74,10 @@ export default function BlogCard({
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          // 没有封面图时使用主题相关的渐变占位，而不是纯色
-          <div className={`w-full h-full bg-gradient-to-br ${getPlaceholderGradient(title)} flex items-center justify-center`}>
-            <div className="text-center text-white/90 p-4">
-              <div className="text-5xl mb-2">{title.charAt(0)}</div>
-              <div className="text-xs opacity-70 uppercase tracking-wider">{category || "Article"}</div>
+          // 没有封面图时使用主题相关的渐变占位
+          <div className={`w-full h-full bg-gradient-to-br ${getPlaceholderGradient(title)} flex items-start justify-start p-5`}>
+            <div className="text-left text-white/90">
+              <div className="text-3xl font-bold">{title.charAt(0)}</div>
             </div>
           </div>
         )}
@@ -87,8 +86,8 @@ export default function BlogCard({
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
       </div>
 
-      {/* Content */}
-      <div className="flex flex-col flex-1 p-5">
+      {/* Content - 统一左上角对齐 */}
+      <div className="flex flex-col flex-1 p-5 items-start text-left">
         {/* Meta Row: Category & Difficulty */}
         <div className="flex items-center gap-2 mb-3">
           {category && (
@@ -101,14 +100,14 @@ export default function BlogCard({
           </span>
         </div>
 
-        {/* Title */}
-        <h3 className="text-lg font-semibold text-neutral-900 leading-snug mb-2 group-hover:text-orange-600 transition-colors line-clamp-2">
+        {/* Title - 左上角对齐 */}
+        <h3 className="w-full text-lg font-semibold text-neutral-900 leading-snug mb-2 group-hover:text-orange-600 transition-colors line-clamp-2 text-left">
           {title}
         </h3>
 
-        {/* Excerpt */}
+        {/* Excerpt - 左上角对齐 */}
         {excerpt && (
-          <p className="text-sm text-neutral-500 line-clamp-2 mb-4 flex-1">
+          <p className="w-full text-sm text-neutral-500 line-clamp-2 mb-4 flex-1 text-left">
             {excerpt}
           </p>
         )}

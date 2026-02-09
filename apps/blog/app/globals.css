@@ -272,3 +272,31 @@
 .link-underline:hover::after {
   width: 100%;
 }
+
+/* Course Page Animations */
+@keyframes float-slow {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -24px, 0); }
+}
+
+@keyframes float-medium {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(12px, -18px, 0); }
+}
+
+@keyframes float-fast {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-8px, -16px, 0); }
+}
+
+.float-slow {
+  animation: float-slow 16s ease-in-out infinite;
+}
+
+.float-medium {
+  animation: float-medium 12s ease-in-out infinite;
+}
+
+.float-fast {
+  animation: float-fast 10s ease-in-out infinite;
+}

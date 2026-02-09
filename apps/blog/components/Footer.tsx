@@ -6,62 +6,45 @@ export default function Footer() {
   return (
     <footer className="bg-neutral-900 text-neutral-400">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
-        {/* Main Footer */}
-        <div className="py-12 grid grid-cols-2 md:grid-cols-4 gap-8">
+        {/* Main Footer - 更紧凑的三列布局 */}
+        <div className="py-12 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-1">
+          <div>
             <div className="flex items-center gap-2 mb-4">
               <span className="text-2xl">👨‍💻</span>
               <span className="text-white font-semibold">AI PM 转型记录</span>
             </div>
-            <p className="text-sm text-neutral-500 leading-relaxed">
+            <p className="text-sm text-neutral-500 leading-relaxed max-w-xs">
               公开记录从传统 PM 到 AI PM 的转型过程。分享真实的学习笔记、工具实践和项目复盘。
             </p>
           </div>
 
-          {/* Links */}
+          {/* Links - 两列布局更紧凑 */}
           <div>
-            <h4 className="text-white font-medium mb-4 text-sm">学习路径</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a href="/course/roadmap" className="hover:text-white transition-colors">
-                  学习路线图
-                </a>
-              </li>
-              <li>
-                <a href="/blog?category=ai-tools" className="hover:text-white transition-colors">
-                  AI 工具测评
-                </a>
-              </li>
-              <li>
-                <a href="/blog?category=prompt" className="hover:text-white transition-colors">
-                  Prompt 工程
-                </a>
-              </li>
-            </ul>
+            <h4 className="text-white font-medium mb-4 text-sm">导航</h4>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
+              <a href="/course/roadmap" className="hover:text-white transition-colors">
+                学习路线图
+              </a>
+              <a href="/blog?category=pm" className="hover:text-white transition-colors">
+                产品方法论
+              </a>
+              <a href="/blog?category=ai-tools" className="hover:text-white transition-colors">
+                AI 工具测评
+              </a>
+              <a href="/blog?category=coding" className="hover:text-white transition-colors">
+                编程实战
+              </a>
+              <a href="/blog?category=prompt" className="hover:text-white transition-colors">
+                Prompt 工程
+              </a>
+              <a href="/blog?category=thinking" className="hover:text-white transition-colors">
+                思考复盘
+              </a>
+            </div>
           </div>
 
-          <div>
-            <h4 className="text-white font-medium mb-4 text-sm">内容分类</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a href="/blog?category=pm" className="hover:text-white transition-colors">
-                  产品方法论
-                </a>
-              </li>
-              <li>
-                <a href="/blog?category=coding" className="hover:text-white transition-colors">
-                  编程实战
-                </a>
-              </li>
-              <li>
-                <a href="/blog?category=thinking" className="hover:text-white transition-colors">
-                  思考复盘
-                </a>
-              </li>
-            </ul>
-          </div>
-
+          {/* About */}
           <div>
             <h4 className="text-white font-medium mb-4 text-sm">关于</h4>
             <ul className="space-y-2 text-sm">

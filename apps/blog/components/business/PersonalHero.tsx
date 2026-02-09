@@ -24,9 +24,9 @@ export default function PersonalHero({ latestNotes }: PersonalHeroProps) {
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-20 pt-28">
         <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-16 items-start">
           
-          {/* Left: Personal Story Area */}
-          <div className="space-y-8">
-            {/* Profile Section - 真实个人元素 */}
+          {/* Left: Personal Story Area - 与右侧卡片顶端对齐 */}
+          <div className="flex flex-col">
+            {/* Profile Section */}
             <div className="flex items-start gap-5">
               {/* Avatar - 可以替换为真实头像 */}
               <div className="relative">
@@ -51,8 +51,8 @@ export default function PersonalHero({ latestNotes }: PersonalHeroProps) {
               </div>
             </div>
 
-            {/* Main Headline - 行动感文案 */}
-            <div className="space-y-4">
+            {/* Main Headline */}
+            <div className="mt-8">
               <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-bold text-neutral-900 leading-[1.15] tracking-tight">
                 我在公开记录
                 <br />
@@ -61,13 +61,13 @@ export default function PersonalHero({ latestNotes }: PersonalHeroProps) {
                 的转型过程
               </h1>
               
-              <p className="text-base text-neutral-500 max-w-md leading-relaxed">
+              <p className="mt-4 text-base text-neutral-500 max-w-md leading-relaxed">
                 分享学习笔记、工具实践、项目复盘。不画饼，只记录真实的成长轨迹。
               </p>
             </div>
 
-            {/* Stats - 真实数据感 */}
-            <div className="flex items-center gap-6 py-4 border-y border-neutral-100">
+            {/* Stats */}
+            <div className="mt-8 flex items-center gap-6 py-4 border-y border-neutral-100">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-700 font-semibold">
                   30+
@@ -89,8 +89,8 @@ export default function PersonalHero({ latestNotes }: PersonalHeroProps) {
               </div>
             </div>
 
-            {/* CTA Buttons - 减少橙色，用中性色 */}
-            <div className="flex flex-wrap gap-3">
+            {/* CTA Buttons */}
+            <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="/blog"
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-900 text-white rounded-xl font-medium hover:bg-neutral-800 transition-colors"
@@ -111,8 +111,8 @@ export default function PersonalHero({ latestNotes }: PersonalHeroProps) {
               </a>
             </div>
 
-            {/* Learning Photos / Work Screenshots - 真实元素 */}
-            <div className="flex items-center gap-3 pt-4">
+            {/* Learning Photos */}
+            <div className="mt-6 flex items-center gap-3">
               <div className="flex -space-x-2">
                 {["💻", "📝", "🤖", "📊"].map((emoji, i) => (
                   <div 
@@ -129,8 +129,8 @@ export default function PersonalHero({ latestNotes }: PersonalHeroProps) {
             </div>
           </div>
 
-          {/* Right: Interactive Card */}
-          <div className="lg:sticky lg:top-24">
+          {/* Right: Interactive Card - 与左侧内容顶端对齐 */}
+          <div>
             {/* Tab Switcher */}
             <div className="flex items-center gap-1 p-1 bg-neutral-100 rounded-xl mb-4">
               <button
